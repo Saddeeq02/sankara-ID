@@ -38,9 +38,19 @@ async def create_staff(
         # Save photo to uploads directory
         file_ext = os.path.splitext(picture.filename)[1]
         filename = f"staff_{username}{file_ext}"
-        save_path = os.path.join("uploads", filename)
-        with open(save_path, "wb") as buffer:
-            shutil.copyfileobj(picture.file, buffer)
+        
+        try:
+            os.makedirs("uploads", exist_ok=True)
+            save_path = os.path.join("uploads", filename)
+            with open(save_path, "wb") as buffer:
+                shutil.copyfileobj(picture.file, buffer)
+        except OSError:
+            # Fallback for Vercel Read-Only File System
+            os.makedirs("/tmp", exist_ok=True)
+            save_path = os.path.join("/tmp", filename)
+            with open(save_path, "wb") as buffer:
+                shutil.copyfileobj(picture.file, buffer)
+                
         picture_path = save_path
 
     db_staff = models.Staff(
@@ -149,13 +159,22 @@ async def update_staff_picture(
         
         file_ext = ".jpg"
         filename = f"staff_{db_staff.username}{file_ext}"
-        save_path = os.path.join("uploads", filename)
         
-        contents = await picture.read()
-        image = Image.open(io.BytesIO(contents))
-        rgb_image = image.convert("RGB")
-        rgb_image.save(save_path, "JPEG")
-        
+        try:
+            os.makedirs("uploads", exist_ok=True)
+            save_path = os.path.join("uploads", filename)
+            contents = await picture.read()
+            image = Image.open(io.BytesIO(contents))
+            rgb_image = image.convert("RGB")
+            rgb_image.save(save_path, "JPEG")
+        except OSError:
+            os.makedirs("/tmp", exist_ok=True)
+            save_path = os.path.join("/tmp", filename)
+            contents = await picture.read()
+            image = Image.open(io.BytesIO(contents))
+            rgb_image = image.convert("RGB")
+            rgb_image.save(save_path, "JPEG")
+            
         db_staff.picture_path = save_path
         db.commit()
         db.refresh(db_staff)
