@@ -15,8 +15,8 @@ export default function QRCodeGenerator() {
   });
 
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qrData)}`;
-  const logoUrl = 'http://localhost:8000/uploads/logo.png';
-  const tractorBg = 'http://localhost:8000/tractor_bg.png';
+  const logoUrl = 'https://sankara-id.vercel.app/uploads/logo.png';
+  const tractorBg = 'https://sankara-id.vercel.app/tractor_bg.png';
 
   const handlePrint = () => {
     const printWindow = window.open('', '_blank');

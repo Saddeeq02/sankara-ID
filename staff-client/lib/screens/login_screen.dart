@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 
 String getBaseUrl() {
-  // Automatically points to the backend server's active IP address
-  return "http://192.168.217.124:8000";
+  // Production backend running on Vercel
+  return "https://sankara-id.vercel.app";
 }
 
 class LoginScreen extends StatefulWidget {

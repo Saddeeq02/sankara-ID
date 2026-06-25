@@ -14,7 +14,7 @@ export default function Leaderboard() {
   async function fetchData() {
     try {
       // Get all staff
-      const staffRes = await fetch('http://localhost:8000/staff/');
+      const staffRes = await fetch('https://sankara-id.vercel.app/staff/');
       const staffData = await staffRes.json();
       setStaffList(staffData);
 
@@ -23,7 +23,7 @@ export default function Leaderboard() {
       setLeaderboard(sortedLeaderboard);
 
       // Get all tasks
-      const tasksRes = await fetch('http://localhost:8000/tasks/');
+      const tasksRes = await fetch('https://sankara-id.vercel.app/tasks/');
       const tasksData = await tasksRes.json();
       setTasks(tasksData);
 
@@ -42,7 +42,7 @@ export default function Leaderboard() {
   const handleAssignTask = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8000/tasks/', {
+      const res = await fetch('https://sankara-id.vercel.app/tasks/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export default function Leaderboard() {
 
   const handleApproveTask = async (taskId) => {
     try {
-      const res = await fetch(`http://localhost:8000/tasks/${taskId}/approve`, {
+      const res = await fetch(`https://sankara-id.vercel.app/tasks/${taskId}/approve`, {
         method: 'PUT'
       });
       if (res.ok) {

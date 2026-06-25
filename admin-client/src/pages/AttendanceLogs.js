@@ -13,7 +13,7 @@ export default function AttendanceLogs() {
   async function fetchLogs() {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/attendance/');
+      const res = await fetch('https://sankara-id.vercel.app/attendance/');
       const data = await res.json();
       data.sort((a, b) => new Date(b.date) - new Date(a.date));
       setLogs(data);

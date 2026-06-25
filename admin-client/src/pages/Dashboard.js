@@ -17,15 +17,15 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         // Fetch all staff
-        const staffRes = await fetch('http://localhost:8000/staff/');
+        const staffRes = await fetch('https://sankara-id.vercel.app/staff/');
         const staffData = await staffRes.json();
         
         // Fetch all attendance
-        const attendanceRes = await fetch('http://localhost:8000/attendance/');
+        const attendanceRes = await fetch('https://sankara-id.vercel.app/attendance/');
         const attendanceData = await attendanceRes.json();
         
         // Fetch all tasks
-        const tasksRes = await fetch('http://localhost:8000/tasks/');
+        const tasksRes = await fetch('https://sankara-id.vercel.app/tasks/');
         const tasksData = await tasksRes.json();
 
         // Calculate today's date string YYYY-MM-DD

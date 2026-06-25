@@ -38,7 +38,7 @@ export default function StaffManagement() {
 
   async function fetchStaff() {
     try {
-      const res = await fetch('http://localhost:8000/staff/');
+      const res = await fetch('https://sankara-id.vercel.app/staff/');
       const data = await res.json();
       setStaff(data);
     } catch (err) {
@@ -67,7 +67,7 @@ export default function StaffManagement() {
         formData.append('picture', pictureFile);
       }
 
-      const res = await fetch('http://localhost:8000/staff/', {
+      const res = await fetch('https://sankara-id.vercel.app/staff/', {
         method: 'POST',
         body: formData
       });
@@ -115,7 +115,7 @@ export default function StaffManagement() {
         updateData.password = editingStaff.password;
       }
 
-      const res = await fetch(`http://localhost:8000/staff/${editingStaff.id}`, {
+      const res = await fetch(`https://sankara-id.vercel.app/staff/${editingStaff.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData)
@@ -132,7 +132,7 @@ export default function StaffManagement() {
         const formData = new FormData();
         formData.append('picture', editPictureFile);
         
-        const picRes = await fetch(`http://localhost:8000/staff/${editingStaff.id}/picture`, {
+        const picRes = await fetch(`https://sankara-id.vercel.app/staff/${editingStaff.id}/picture`, {
           method: 'POST',
           body: formData
         });
@@ -154,7 +154,7 @@ export default function StaffManagement() {
   const handleResetMonthlyScores = async () => {
     if (window.confirm("Are you sure you want to reset all staff scores to 0 and archive them for this month?")) {
       try {
-        const res = await fetch('http://localhost:8000/staff/reset_monthly_scores', {
+        const res = await fetch('https://sankara-id.vercel.app/staff/reset_monthly_scores', {
           method: 'POST'
         });
         if (res.ok) {
@@ -226,7 +226,7 @@ export default function StaffManagement() {
                   <td>SANK-ID-${String(s.id).padStart(5, '0')}</td>
                   <td style=${{ fontWeight: 500, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <img 
-                      src=${s.picture_path ? `http://localhost:8000/${s.picture_path}?t=${new Date().getTime()}` : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'} 
+                      src=${s.picture_path ? `https://sankara-id.vercel.app/${s.picture_path}?t=${new Date().getTime()}` : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'} 
                       style=${{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border-color)' }}
                     />
                     ${s.full_name}
@@ -531,7 +531,7 @@ export default function StaffManagement() {
                 className="btn btn-danger" 
                 onClick=${async () => {
                   try {
-                    const res = await fetch(`http://localhost:8000/staff/${deletingStaff.id}`, {
+                    const res = await fetch(`https://sankara-id.vercel.app/staff/${deletingStaff.id}`, {
                       method: 'DELETE'
                     });
                     if (res.ok) {
@@ -563,7 +563,7 @@ export default function StaffManagement() {
             </p>
             <div style=${{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center' }}>
               <a 
-                href=${`http://localhost:8000/staff/${downloadingStaff.id}/id_card?template=agri`} 
+                href=${`https://sankara-id.vercel.app/staff/${downloadingStaff.id}/id_card?template=agri`} 
                 target="_blank"
                 className="btn btn-primary" 
                 onClick=${() => { setDownloadModalOpen(false); setDownloadingStaff(null); }}
@@ -572,7 +572,7 @@ export default function StaffManagement() {
                 Template 1
               </a>
               <a 
-                href=${`http://localhost:8000/staff/${downloadingStaff.id}/id_card?template=techco`} 
+                href=${`https://sankara-id.vercel.app/staff/${downloadingStaff.id}/id_card?template=techco`} 
                 target="_blank"
                 className="btn btn-glass" 
                 onClick=${() => { setDownloadModalOpen(false); setDownloadingStaff(null); }}

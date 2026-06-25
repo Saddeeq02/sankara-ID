@@ -16,7 +16,7 @@ export default function DevSettings() {
   useEffect(() => {
     async function fetchSettings() {
       try {
-        const res = await fetch('http://localhost:8000/settings/');
+        const res = await fetch('https://sankara-id.vercel.app/settings/');
         if (res.ok) {
           const data = await res.json();
           setSettings(data);
@@ -34,7 +34,7 @@ export default function DevSettings() {
     e.preventDefault();
     setIsSaving(true);
     try {
-      const res = await fetch('http://localhost:8000/settings/', {
+      const res = await fetch('https://sankara-id.vercel.app/settings/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(settings)
