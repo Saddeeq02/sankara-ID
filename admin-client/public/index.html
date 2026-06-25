@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sankara ID System - Admin</title>
+    <link rel="stylesheet" href="src/index.css" />
+    <script>
+      window.addEventListener('error', function(e) {
+        document.body.innerHTML = `<div style="color: #ef4444; padding: 30px; font-family: monospace; background: #0f172a; min-height: 100vh;">
+          <h2 style="margin-top:0;">JavaScript Runtime Error</h2>
+          <p><strong>Message:</strong> ${e.message}</p>
+          <p><strong>File:</strong> ${e.filename}</p>
+          <p><strong>Line:</strong> ${e.lineno}, <strong>Col:</strong> ${e.colno}</p>
+          <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px; overflow-x: auto;">${e.error ? e.error.stack : 'No stack trace available'}</pre>
+        </div>`;
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        document.body.innerHTML = `<div style="color: #ef4444; padding: 30px; font-family: monospace; background: #0f172a; min-height: 100vh;">
+          <h2 style="margin-top:0;">Unhandled Promise Rejection</h2>
+          <p><strong>Reason:</strong> ${e.reason}</p>
+          <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px; overflow-x: auto;">${e.reason && e.reason.stack ? e.reason.stack : 'No stack trace available'}</pre>
+        </div>`;
+      });
+    </script>
+    <!-- Import Map to resolve imports cleanly if needed, or we can use direct URLs -->
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18.2.0",
+          "react-dom": "https://esm.sh/react-dom@18.2.0",
+          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+          "lucide-react": "https://esm.sh/lucide-react@0.359.0",
+          "htm": "https://esm.sh/htm@3.1.1"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="src/index.js?v=2"></script>
+  </body>
+</html>
