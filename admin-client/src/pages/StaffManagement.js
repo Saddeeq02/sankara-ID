@@ -226,7 +226,7 @@ export default function StaffManagement() {
                   <td>SANK-ID-${String(s.id).padStart(5, '0')}</td>
                   <td style=${{ fontWeight: 500, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <img 
-                      src=${s.picture_path ? `https://sankara-id.vercel.app/${s.picture_path}?t=${new Date().getTime()}` : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'} 
+                      src=${s.picture_path ? (s.picture_path.startsWith('http') ? s.picture_path : `https://sankara-id.vercel.app/${s.picture_path}?t=${new Date().getTime()}`) : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'}
                       style=${{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border-color)' }}
                     />
                     ${s.full_name}

@@ -3,6 +3,7 @@ from reportlab.lib.pagesizes import inch
 from reportlab.lib.utils import ImageReader
 import qrcode
 import os
+import requests
 import random
 import math
 from io import BytesIO
@@ -164,11 +165,15 @@ def draw_social_icons(c, cx, y, box_color=(0.12, 0.16, 0.22)):
 
 def generate_id_card(staff_id: int, full_name: str, role: str, department: str, picture_path: str = None, template: str = "agri") -> str:
     output_dir = "generated_ids"
-    os.makedirs(output_dir, exist_ok=True)
+    try:
+        os.makedirs(output_dir, exist_ok=True)
+    except OSError:
+        output_dir = "/tmp/generated_ids"
+        os.makedirs(output_dir, exist_ok=True)
     file_path = os.path.join(output_dir, f"staff_{staff_id}_id.pdf")
 
     c = canvas.Canvas(file_path, pagesize=(CARD_WIDTH, CARD_HEIGHT))
-    logo_path = "/home/fox/sankara_id/backend/uploads/logo.png"
+    logo_path = "uploads/logo.png"
 
     if template == "techco":
         # ==========================
@@ -189,7 +194,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         grad_rect.rect(margin, footer_height, CARD_WIDTH - 2*margin, CARD_HEIGHT - footer_height - margin)
         c.clipPath(grad_rect)
         
-        bg_img_path = "/home/fox/sankara_id/backend/uploads/techco_bg_fixed.png"
+        bg_img_path = "uploads/techco_bg_fixed.png"
         if os.path.exists(bg_img_path):
             c.drawImage(bg_img_path, margin, footer_height, width=CARD_WIDTH - 2*margin, height=CARD_HEIGHT - footer_height - margin, preserveAspectRatio=False)
             # Add a slight dark tint
@@ -233,7 +238,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         
         # Inner Photo
         if picture_path and not os.path.isabs(picture_path):
-            picture_path = os.path.abspath(os.path.join("/home/fox/sankara_id/backend", picture_path))
+            picture_path = os.path.abspath(picture_path)
 
         c.saveState()
         p = c.beginPath()
@@ -312,7 +317,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         grad_rect2 = c.beginPath()
         grad_rect2.rect(margin, white_bg_height, CARD_WIDTH - 2*margin, CARD_HEIGHT - white_bg_height - margin)
         c.clipPath(grad_rect2)
-        bg_img_path = "/home/fox/sankara_id/backend/uploads/techco_bg_fixed.png"
+        bg_img_path = "uploads/techco_bg_fixed.png"
         if os.path.exists(bg_img_path):
             c.drawImage(bg_img_path, margin, white_bg_height, width=CARD_WIDTH - 2*margin, height=CARD_HEIGHT - white_bg_height - margin, preserveAspectRatio=False)
             c.setFillColorRGB(0.05, 0.1, 0.2, 0.4)
@@ -445,7 +450,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         
         # Inner Photo
         if picture_path and not os.path.isabs(picture_path):
-            picture_path = os.path.abspath(os.path.join("/home/fox/sankara_id/backend", picture_path))
+            picture_path = os.path.abspath(picture_path)
 
         c.saveState()
         p = c.beginPath()

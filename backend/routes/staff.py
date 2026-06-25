@@ -4,9 +4,31 @@ from sqlalchemy.orm import Session
 import models, schemas
 from services.pdf_generator import generate_id_card
 import os
+import requests
 import shutil
 from typing import Optional
 from pydantic import BaseModel
+
+
+SUPABASE_URL = "https://srepwupmdnkbisyzixvy.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyZXB3dXBtZG5rYmlzeXppeHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MDg1NDgsImV4cCI6MjA5Nzk4NDU0OH0.Ygk9FwOpdWgW0IcgWqu6xYymGPcyXf2xmmDASmJTwP4"
+
+def upload_to_supabase(file_bytes, filename, content_type="image/jpeg"):
+    url = f"{SUPABASE_URL}/storage/v1/object/staff-pictures/{filename}"
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {SUPABASE_ANON_KEY}",
+        "Content-Type": content_type
+    }
+    # Upsert to overwrite if it exists
+    headers["x-upsert"] = "true"
+    
+    response = requests.post(url, headers=headers, data=file_bytes)
+    if response.status_code in [200, 201]:
+        return f"{SUPABASE_URL}/storage/v1/object/public/staff-pictures/{filename}"
+    else:
+        print("Supabase Upload Failed:", response.text)
+        return None
 
 router = APIRouter(prefix="/staff", tags=["Staff"])
 
@@ -39,19 +61,9 @@ async def create_staff(
         file_ext = os.path.splitext(picture.filename)[1]
         filename = f"staff_{username}{file_ext}"
         
-        try:
-            os.makedirs("uploads", exist_ok=True)
-            save_path = os.path.join("uploads", filename)
-            with open(save_path, "wb") as buffer:
-                shutil.copyfileobj(picture.file, buffer)
-        except OSError:
-            # Fallback for Vercel Read-Only File System
-            os.makedirs("/tmp", exist_ok=True)
-            save_path = os.path.join("/tmp", filename)
-            with open(save_path, "wb") as buffer:
-                shutil.copyfileobj(picture.file, buffer)
-                
-        picture_path = save_path
+        file_bytes = picture.file.read()
+        public_url = upload_to_supabase(file_bytes, filename)
+        picture_path = public_url if public_url else None
 
     db_staff = models.Staff(
         full_name=full_name,
@@ -160,22 +172,15 @@ async def update_staff_picture(
         file_ext = ".jpg"
         filename = f"staff_{db_staff.username}{file_ext}"
         
-        try:
-            os.makedirs("uploads", exist_ok=True)
-            save_path = os.path.join("uploads", filename)
-            contents = await picture.read()
-            image = Image.open(io.BytesIO(contents))
-            rgb_image = image.convert("RGB")
-            rgb_image.save(save_path, "JPEG")
-        except OSError:
-            os.makedirs("/tmp", exist_ok=True)
-            save_path = os.path.join("/tmp", filename)
-            contents = await picture.read()
-            image = Image.open(io.BytesIO(contents))
-            rgb_image = image.convert("RGB")
-            rgb_image.save(save_path, "JPEG")
-            
-        db_staff.picture_path = save_path
+        contents = await picture.read()
+        image = Image.open(io.BytesIO(contents))
+        rgb_image = image.convert("RGB")
+        out_bytes = io.BytesIO()
+        rgb_image.save(out_bytes, "JPEG")
+        
+        public_url = upload_to_supabase(out_bytes.getvalue(), filename)
+        if public_url:
+            db_staff.picture_path = public_url
         db.commit()
         db.refresh(db_staff)
         
