@@ -12,6 +12,7 @@ export default function DevSettings() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
 
   useEffect(() => {
     async function fetchSettings() {
@@ -56,6 +57,27 @@ export default function DevSettings() {
     return html`<div>Loading settings...</div>`;
   }
 
+  const handleAutoDetect = async () => {
+    setIsLocating(true);
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      if (data.latitude && data.longitude) {
+        setSettings({
+          ...settings,
+          COMPANY_LAT: parseFloat(data.latitude),
+          COMPANY_LON: parseFloat(data.longitude)
+        });
+      } else {
+        alert("Could not auto-detect location accurately.");
+      }
+    } catch (err) {
+      alert("Error fetching location: " + err.message);
+    } finally {
+      setIsLocating(false);
+    }
+  };
+
   return html`
     <div>
       <header style=${{ marginBottom: '2rem' }}>
@@ -87,9 +109,20 @@ export default function DevSettings() {
           </div>
 
           <div style=${{ marginBottom: '2rem' }}>
-            <h3 style=${{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-              <${MapPin} size=${20} color="var(--primary-color)" />
-              Company Office Coordinates
+            <h3 style=${{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <div style=${{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <${MapPin} size=${20} color="var(--primary-color)" />
+                Company Office Coordinates
+              </div>
+              <button 
+                type="button" 
+                onClick=${handleAutoDetect} 
+                disabled=${isLocating}
+                className="btn btn-secondary" 
+                style=${{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
+              >
+                ${isLocating ? 'Detecting...' : 'Auto-detect My Location'}
+              </button>
             </h3>
             <div style=${{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>

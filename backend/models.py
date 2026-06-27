@@ -82,6 +82,14 @@ class ScoreHistory(Base):
 
     staff = relationship("Staff", back_populates="score_histories")
 
+class SystemSettings(Base):
+    __tablename__ = "system_settings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    company_lat = Column(Float, default=11.9804)
+    company_lon = Column(Float, default=8.4958)
+    enforce_geofencing = Column(Boolean, default=True)
+
 def get_db():
     db = SessionLocal()
     try:

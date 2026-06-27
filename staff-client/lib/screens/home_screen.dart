@@ -87,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final photoUrl = _picturePath.isNotEmpty ? "${getBaseUrl()}/$_picturePath" : "";
+    final photoUrl = _picturePath.isNotEmpty 
+        ? (_picturePath.startsWith('http') ? _picturePath : "${getBaseUrl()}/$_picturePath") 
+        : "";
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(

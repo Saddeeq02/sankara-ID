@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import models, schemas
 from datetime import datetime
 import math
-from routes.settings import get_config
+from routes.settings import get_settings_db
 
 router = APIRouter(prefix="/attendance", tags=["Attendance"])
 
@@ -38,10 +38,10 @@ def clock_in_out(attendance: schemas.AttendanceCreate, db: Session = Depends(mod
         staff.uuid = attendance.device_uuid
     
     # Check Location Distance (Configurable)
-    config = get_config()
-    company_lat = config.get("COMPANY_LAT", 11.9804)
-    company_lon = config.get("COMPANY_LON", 8.4958)
-    enforce_geofencing = config.get("ENFORCE_GEOFENCING", True)
+    config = get_settings_db(db)
+    company_lat = config.company_lat
+    company_lon = config.company_lon
+    enforce_geofencing = config.enforce_geofencing
 
     location_warning = None
     if enforce_geofencing:
