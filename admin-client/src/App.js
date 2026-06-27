@@ -57,8 +57,8 @@ function App() {
         <div className="glass-card" style=${{ maxWidth: '400px', width: '90%', padding: '2.5rem' }}>
           <div style=${{ textAlign: 'center', marginBottom: '2rem' }}>
             <img src="/logo.png" alt="Sankara Logo" style=${{ height: '80px', marginBottom: '1rem', objectFit: 'contain' }} />
-            <h2 style=${{ fontSize: '1.75rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>Sankara MD</h2>
-            <p style=${{ color: 'var(--text-secondary)' }}>Welcome back, MD. Please sign in.</p>
+            <h2 style=${{ fontSize: '1.75rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>Sankara Admin</h2>
+            <p style=${{ color: 'var(--text-secondary)' }}>Welcome back, Sir. Please sign in.</p>
           </div>
           
           <form onSubmit=${handleLogin} style=${{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>

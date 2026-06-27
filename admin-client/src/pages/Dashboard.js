@@ -138,7 +138,7 @@ export default function Dashboard() {
         <div style=${{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <h1 style=${{ color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '2rem' }}>
-              ${getGreeting()}, MD <${Sparkles} size=${28} color="#fbbf24" />
+              ${getGreeting()}, Sir <${Sparkles} size=${28} color="#fbbf24" />
             </h1>
             <p style=${{ color: '#c7d2fe', fontSize: '1.1rem', margin: 0 }}>Here is your high-level overview for today.</p>
           </div>
