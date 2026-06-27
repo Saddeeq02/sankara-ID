@@ -184,7 +184,7 @@ export default function Dashboard() {
           </div>
           <p className="stat-value" style=${{ fontSize: '2.5rem' }}>${stats.presentToday}</p>
           <div style=${{ marginTop: '1rem', height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden' }}>
-            <div style=${{ height: '100%', background: 'var(--success)', width: \`\${stats.totalStaff > 0 ? (stats.presentToday/stats.totalStaff)*100 : 0}%\`, transition: 'width 1s ease-out' }}></div>
+            <div style=${{ height: '100%', background: 'var(--success)', width: (stats.totalStaff > 0 ? (stats.presentToday/stats.totalStaff)*100 : 0) + '%', transition: 'width 1s ease-out' }}></div>
           </div>
         </div>
 
