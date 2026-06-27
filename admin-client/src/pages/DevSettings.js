@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { Settings, MapPin, ShieldAlert } from 'lucide-react';
+import { MapPin, ShieldAlert } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 

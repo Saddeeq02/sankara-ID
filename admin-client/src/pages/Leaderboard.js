@@ -37,6 +37,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAssignTask = async (e) => {
