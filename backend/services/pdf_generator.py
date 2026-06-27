@@ -164,12 +164,8 @@ def draw_social_icons(c, cx, y, box_color=(0.12, 0.16, 0.22)):
     c.restoreState()
 
 def generate_id_card(staff_id: int, full_name: str, role: str, department: str, picture_path: str = None, template: str = "agri") -> str:
-    output_dir = "generated_ids"
-    try:
-        os.makedirs(output_dir, exist_ok=True)
-    except OSError:
-        output_dir = "/tmp/generated_ids"
-        os.makedirs(output_dir, exist_ok=True)
+    import tempfile
+    output_dir = tempfile.gettempdir()
     file_path = os.path.join(output_dir, f"staff_{staff_id}_id.pdf")
 
     c = canvas.Canvas(file_path, pagesize=(CARD_WIDTH, CARD_HEIGHT))
