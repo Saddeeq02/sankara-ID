@@ -6,11 +6,12 @@ import Leaderboard from './pages/Leaderboard.js';
 import AttendanceLogs from './pages/AttendanceLogs.js';
 import QRCodeGenerator from './pages/QRCodeGenerator.js';
 import DevSettings from './pages/DevSettings.js';
-import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(() => {
     const hash = window.location.hash.replace('#', '');
     return hash || 'dashboard';
@@ -19,6 +20,8 @@ function App() {
   // Sync state changes back to URL hash
   React.useEffect(() => {
     window.location.hash = currentPage;
+    // Close sidebar on mobile when navigating
+    setSidebarOpen(false);
   }, [currentPage]);
 
 
@@ -43,11 +46,26 @@ function App() {
 
   return html`
     <div className="layout">
-      <aside className="sidebar">
-        <div>
-          <h2 style=${{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Sankara ID</h2>
-          <p style=${{ fontSize: '0.875rem' }}>Admin Portal</p>
+      <div 
+        className=${`sidebar-overlay ${sidebarOpen ? 'open' : ''}`} 
+        onClick=${() => setSidebarOpen(false)}
+      ></div>
+      
+      <aside className=${`sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h2 style=${{ fontSize: '1.5rem', margin: 0 }}>Sankara ID</h2>
+            <p style=${{ fontSize: '0.875rem', margin: '0.5rem 0 0 0' }}>Admin Portal</p>
+          </div>
+          <button 
+            className="mobile-menu-btn" 
+            style=${{ border: 'none', background: 'transparent' }}
+            onClick=${() => setSidebarOpen(false)}
+          >
+            <${X} size=${24} />
+          </button>
         </div>
+        
         <nav className="sidebar-nav">
           <button 
             onClick=${() => setCurrentPage('dashboard')} 
@@ -97,6 +115,14 @@ function App() {
         </nav>
       </aside>
       <main className="main-content">
+        <div style=${{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem' }}>
+          <button 
+            className="mobile-menu-btn" 
+            onClick=${() => setSidebarOpen(true)}
+          >
+            <${Menu} size=${24} />
+          </button>
+        </div>
         ${renderPage()}
       </main>
     </div>
