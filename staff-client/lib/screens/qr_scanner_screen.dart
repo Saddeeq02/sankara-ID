@@ -247,7 +247,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Connection error. Make sure backend is running.')),
+          SnackBar(content: Text('Error: $e')),
         );
         setState(() {
           _isDialogVisible = false;
