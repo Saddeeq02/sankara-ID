@@ -41,13 +41,14 @@ export default function DevSettings() {
         body: JSON.stringify(settings)
       });
       if (res.ok) {
-        alert("Settings saved successfully!");
+        alert("Success: Settings saved successfully!");
       } else {
-        alert("Failed to save settings.");
+        const err = await res.json().catch(() => ({}));
+        alert("Error: " + (err.detail || "Failed to save settings."));
       }
     } catch (err) {
       console.error("Error saving settings:", err);
-      alert("Error saving settings");
+      alert("Error: A network error occurred while saving settings.");
     } finally {
       setIsSaving(false);
     }

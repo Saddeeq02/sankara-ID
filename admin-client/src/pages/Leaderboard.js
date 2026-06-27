@@ -58,9 +58,14 @@ export default function Leaderboard() {
         setNewTask(prev => ({ ...prev, title: '', description: '', points: 10 }));
         setShowModal(false);
         fetchData();
+        alert("Success: Task assigned successfully!");
+      } else {
+        const err = await res.json();
+        alert(err.detail || "Error assigning task");
       }
     } catch (err) {
       console.error("Error assigning task:", err);
+      alert("Error: A network error occurred while assigning the task.");
     }
   };
 
@@ -71,9 +76,14 @@ export default function Leaderboard() {
       });
       if (res.ok) {
         fetchData();
+        alert("Success: Task approved and points awarded!");
+      } else {
+        const err = await res.json();
+        alert(err.detail || "Error approving task");
       }
     } catch (err) {
       console.error("Error approving task:", err);
+      alert("Error: A network error occurred while approving the task.");
     }
   };
 

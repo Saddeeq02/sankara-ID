@@ -86,12 +86,14 @@ export default function StaffManagement() {
         setPictureFile(null);
         setShowModal(false);
         fetchStaff();
+        alert("Success: Staff member has been registered successfully!");
       } else {
         const err = await res.json();
         alert(err.detail || "Error registering staff");
       }
     } catch (err) {
       console.error("Error creating staff:", err);
+      alert("Error: A network error occurred while registering staff.");
     }
   };
 
@@ -146,8 +148,10 @@ export default function StaffManagement() {
       setEditingStaff(null);
       setEditPictureFile(null);
       fetchStaff();
+      alert("Success: Staff member has been updated successfully!");
     } catch (err) {
       console.error("Error updating staff:", err);
+      alert("Error: A network error occurred while updating staff.");
     }
   };
 
@@ -161,10 +165,11 @@ export default function StaffManagement() {
           alert("Monthly scores reset and archived successfully!");
           fetchStaff();
         } else {
-          alert("Failed to reset scores.");
+          alert("Error: Failed to reset scores.");
         }
       } catch (err) {
         console.error("Error resetting scores:", err);
+        alert("Error: A network error occurred while resetting scores.");
       }
     }
   };
@@ -543,12 +548,14 @@ export default function StaffManagement() {
                       setDeleteConfirmOpen(false);
                       setDeletingStaff(null);
                       fetchStaff();
+                      alert("Success: Staff member profile deleted successfully.");
                     } else {
                       const err = await res.json();
                       alert(err.detail || "Error deleting staff");
                     }
                   } catch (err) {
                     console.error("Error deleting staff:", err);
+                    alert("Error: A network error occurred while deleting staff.");
                   }
                 }}
               >
