@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { Users, UserCheck, UserX, Activity, Sparkles, TrendingUp, Clock, CheckCircle, ShieldAlert } from 'lucide-react';
+import { Users, UserCheck, UserX, Activity, Sparkles, TrendingUp, Clock, CheckCircle, ShieldAlert, Trophy } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
