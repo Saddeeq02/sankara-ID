@@ -21,8 +21,55 @@ void main() async {
   runApp(const StaffClientApp());
 }
 
-class StaffClientApp extends StatelessWidget {
+class StaffClientApp extends StatefulWidget {
   const StaffClientApp({Key? key}) : super(key: key);
+
+  @override
+  State<StaffClientApp> createState() => _StaffClientAppState();
+}
+
+class _StaffClientAppState extends State<StaffClientApp> with WidgetsBindingObserver {
+  
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setInt('last_activity', DateTime.now().millisecondsSinceEpoch);
+      });
+    } else if (state == AppLifecycleState.resumed) {
+      _checkTimeoutAndLogout();
+    }
+  }
+
+  Future<void> _checkTimeoutAndLogout() async {
+    final prefs = await SharedPreferences.getInstance();
+    final lastActivity = prefs.getInt('last_activity');
+    if (lastActivity != null && prefs.containsKey('staff_id')) {
+      final last = DateTime.fromMillisecondsSinceEpoch(lastActivity);
+      if (DateTime.now().difference(last).inMinutes >= 30) {
+        // Logout but keep username
+        final username = prefs.getString('username');
+        await prefs.clear();
+        if (username != null) {
+          await prefs.setString('username', username);
+        }
+        // Force rebuild to show login screen
+        setState(() {});
+      }
+    }
+  }
 
   Future<bool> _checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
@@ -39,6 +86,19 @@ class StaffClientApp extends StatelessWidget {
       }
     } catch (_) {}
 
+    final lastActivity = prefs.getInt('last_activity');
+    if (lastActivity != null && prefs.containsKey('staff_id')) {
+      final last = DateTime.fromMillisecondsSinceEpoch(lastActivity);
+      if (DateTime.now().difference(last).inMinutes >= 30) {
+        final username = prefs.getString('username');
+        await prefs.clear();
+        if (username != null) {
+          await prefs.setString('username', username);
+        }
+        return false;
+      }
+    }
+
     return prefs.containsKey('staff_id');
   }
 
@@ -46,6 +106,7 @@ class StaffClientApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sankara',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(

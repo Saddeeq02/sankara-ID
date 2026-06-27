@@ -266,8 +266,12 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         text_y = photo_y - photo_r - 18
         
         c.setFillColorRGB(1, 1, 1, 1) # White name for dark background
-        c.setFont("Helvetica-Bold", 12)
-        c.drawCentredString(CARD_WIDTH / 2, text_y, full_name.title())
+        name_str = full_name.title()
+        font_size = 12
+        while c.stringWidth(name_str, "Helvetica-Bold", font_size) > (CARD_WIDTH - 40) and font_size > 6:
+            font_size -= 0.5
+        c.setFont("Helvetica-Bold", font_size)
+        c.drawCentredString(CARD_WIDTH / 2, text_y, name_str)
 
         c.setFillColorRGB(0.6, 0.8, 0.85, 1) # Soft light teal for role
         c.setFont("Helvetica", 8)
@@ -489,8 +493,12 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         text_color = (0.2, 0.1, 0.05)
         
         c.setFillColorRGB(*text_color, 1)
-        c.setFont("Helvetica-Bold", 12)
-        c.drawCentredString(CARD_WIDTH / 2, text_y, full_name.title())
+        name_str = full_name.title()
+        font_size = 12
+        while c.stringWidth(name_str, "Helvetica-Bold", font_size) > (CARD_WIDTH - 40) and font_size > 6:
+            font_size -= 0.5
+        c.setFont("Helvetica-Bold", font_size)
+        c.drawCentredString(CARD_WIDTH / 2, text_y, name_str)
 
         c.setFillColorRGB(0.35, 0.2, 0.1, 1) # Medium brown for role
         c.setFont("Helvetica", 8)
