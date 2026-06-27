@@ -57,13 +57,34 @@ body {
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .glass-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08), 0 0 15px var(--primary-glow);
-  border-color: rgba(79, 70, 229, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 20px -8px rgba(0, 0, 0, 0.08), 
+    0 0 25px rgba(79, 70, 229, 0.15),
+    0 0 45px rgba(14, 165, 233, 0.1);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
 }
 
 /* Typographic Elements */
