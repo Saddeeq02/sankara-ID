@@ -153,7 +153,12 @@ def get_id_card(staff_id: int, template: str = "agri", db: Session = Depends(mod
         raise HTTPException(status_code=404, detail="Staff not found")
     
     pdf_path = generate_id_card(db_staff.id, db_staff.full_name, db_staff.role, db_staff.department, db_staff.picture_path, template=template)
-    return FileResponse(pdf_path, media_type="application/pdf")
+    
+    from fastapi.responses import Response
+    with open(pdf_path, "rb") as f:
+        pdf_bytes = f.read()
+    
+    return Response(content=pdf_bytes, media_type="application/pdf")
 
 @router.post("/{staff_id}/picture", response_model=schemas.StaffResponse)
 async def update_staff_picture(
