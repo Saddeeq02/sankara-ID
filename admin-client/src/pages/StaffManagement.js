@@ -284,7 +284,11 @@ export default function StaffManagement() {
                     className="input-field" 
                     required 
                     value=${newStaff.full_name}
-                    onChange=${e => setNewStaff({...newStaff, full_name: e.target.value})}
+                    onChange=${e => {
+                      const val = e.target.value;
+                      const firstName = val.split(' ')[0].toLowerCase();
+                      setNewStaff({...newStaff, full_name: val, username: firstName});
+                    }}
                   />
                 </div>
                 <div>
@@ -357,13 +361,14 @@ export default function StaffManagement() {
                   />
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Username (Login)</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Username (Auto-generated)</label>
                   <input 
                     type="text" 
                     className="input-field" 
                     required 
+                    readOnly
+                    style=${{ backgroundColor: 'rgba(0,0,0,0.05)', color: 'var(--text-secondary)', cursor: 'not-allowed' }}
                     value=${newStaff.username}
-                    onChange=${e => setNewStaff({...newStaff, username: e.target.value})}
                   />
                 </div>
                 <div>
