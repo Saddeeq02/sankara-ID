@@ -48,13 +48,14 @@ def clock_in_out(attendance: schemas.AttendanceCreate, db: Session = Depends(mod
         # We assume 200m radius
         distance = calculate_distance(attendance.latitude, attendance.longitude, company_lat, company_lon)
         if distance > 200:
+            dist_str = "Unknown" if distance == float('inf') else f"{int(distance)}m"
             staff.out_of_bounds_attempts = (staff.out_of_bounds_attempts or 0) + 1
             if staff.out_of_bounds_attempts >= 2:
                 staff.score = (staff.score or 0) - 10
                 staff.out_of_bounds_attempts = 0 # reset after penalty
-                location_warning = f"You are not at the office! Distance: {int(distance)}m. 10 Points deducted for repeat offense."
+                location_warning = f"You are not at the office! Distance: {dist_str}. 10 Points deducted for repeat offense."
             else:
-                location_warning = f"Please be punctual and clock in at the office. Distance: {int(distance)}m."
+                location_warning = f"Please be punctual and clock in at the office. Distance: {dist_str}."
     
     # Use local time for punctuality checks
     now = datetime.now()
