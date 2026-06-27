@@ -6,12 +6,19 @@ import Leaderboard from './pages/Leaderboard.js';
 import AttendanceLogs from './pages/AttendanceLogs.js';
 import QRCodeGenerator from './pages/QRCodeGenerator.js';
 import DevSettings from './pages/DevSettings.js';
-import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X, LogOut } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('admin_authenticated') === 'true';
+  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+
   const [currentPage, setCurrentPage] = useState(() => {
     const hash = window.location.hash.replace('#', '');
     return hash || 'dashboard';
@@ -19,10 +26,79 @@ function App() {
 
   // Sync state changes back to URL hash
   React.useEffect(() => {
-    window.location.hash = currentPage;
+    if (isAuthenticated) {
+      window.location.hash = currentPage;
+    }
     // Close sidebar on mobile when navigating
     setSidebarOpen(false);
-  }, [currentPage]);
+  }, [currentPage, isAuthenticated]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === 'sankara' && password === 'admin2026') {
+      localStorage.setItem('admin_authenticated', 'true');
+      setIsAuthenticated(true);
+      setLoginError('');
+    } else {
+      setLoginError('Invalid credentials');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_authenticated');
+    setIsAuthenticated(false);
+    setUsername('');
+    setPassword('');
+  };
+
+  if (!isAuthenticated) {
+    return html`
+      <div style=${{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-gradient)' }}>
+        <div className="glass-card" style=${{ maxWidth: '400px', width: '90%', padding: '2.5rem' }}>
+          <div style=${{ textAlign: 'center', marginBottom: '2rem' }}>
+            <h2 style=${{ fontSize: '1.75rem', marginBottom: '0.5rem', background: 'var(--text-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Sankara Admin</h2>
+            <p style=${{ color: 'var(--text-secondary)' }}>Sign in to access the portal</p>
+          </div>
+          
+          <form onSubmit=${handleLogin} style=${{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            ${loginError && html`
+              <div style=${{ padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', fontSize: '0.875rem', textAlign: 'center' }}>
+                ${loginError}
+              </div>
+            `}
+            
+            <div className="input-group">
+              <label>Username</label>
+              <input 
+                type="text" 
+                value=${username}
+                onChange=${e => setUsername(e.target.value)}
+                className="glass-input" 
+                placeholder="Enter username"
+                required
+              />
+            </div>
+            
+            <div className="input-group">
+              <label>Password</label>
+              <input 
+                type="password" 
+                value=${password}
+                onChange=${e => setPassword(e.target.value)}
+                className="glass-input" 
+                placeholder="Enter password"
+                required
+              />
+            </div>
+            
+            <button type="submit" className="glass-button" style=${{ marginTop: '1rem', width: '100%', background: 'var(--primary)', color: 'white' }}>
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
+    `;
+  }
 
 
   const renderPage = () => {
@@ -111,6 +187,14 @@ function App() {
             style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
           >
             <${Settings} size=${20} /> Dev Mode
+          </button>
+          
+          <button 
+            onClick=${handleLogout} 
+            className="nav-link"
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444', marginTop: 'auto' }}
+          >
+            <${LogOut} size=${20} /> Logout
           </button>
         </nav>
       </aside>
