@@ -11,7 +11,16 @@ import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings } from 'luci
 const html = htm.bind(React.createElement);
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash || 'dashboard';
+  });
+
+  // Sync state changes back to URL hash
+  React.useEffect(() => {
+    window.location.hash = currentPage;
+  }, [currentPage]);
+
 
   const renderPage = () => {
     switch (currentPage) {
