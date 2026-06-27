@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { Users, UserCheck, UserX, Activity } from 'lucide-react';
+import { Users, UserCheck, UserX, Activity, Sparkles, TrendingUp, Clock, CheckCircle, ShieldAlert } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
@@ -12,6 +12,7 @@ export default function Dashboard() {
     tasksCompleted: 0
   });
   const [recentLogs, setRecentLogs] = useState([]);
+  const [topPerformer, setTopPerformer] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -20,6 +21,13 @@ export default function Dashboard() {
         const staffRes = await fetch('https://sankara-id.vercel.app/staff/');
         const staffData = await staffRes.json();
         
+        // Fetch leaderboard for top performer
+        const leadRes = await fetch('https://sankara-id.vercel.app/staff/leaderboard?limit=1');
+        const leadData = await leadRes.json();
+        if(leadData && leadData.length > 0) {
+          setTopPerformer(leadData[0]);
+        }
+
         // Fetch all attendance
         const attendanceRes = await fetch('https://sankara-id.vercel.app/attendance/');
         const attendanceData = await attendanceRes.json();
@@ -61,8 +69,10 @@ export default function Dashboard() {
             logs.push({
               id: `att-in-${att.id}`,
               time: new Date(att.clock_in_time),
-              text: `${name} clocked in ${att.is_proxy ? '(⚠️ PROXY DETECTED)' : ''}`,
-              type: att.is_proxy ? 'warning' : 'info'
+              text: `${name} clocked in`,
+              isWarning: att.is_proxy,
+              icon: att.is_proxy ? ShieldAlert : Clock,
+              color: att.is_proxy ? 'var(--danger)' : 'var(--primary)'
             });
           }
           
@@ -71,7 +81,9 @@ export default function Dashboard() {
               id: `att-out-${att.id}`,
               time: new Date(att.clock_out_time),
               text: `${name} clocked out`,
-              type: 'info'
+              isWarning: false,
+              icon: Clock,
+              color: 'var(--text-secondary)'
             });
           }
         });
@@ -83,10 +95,12 @@ export default function Dashboard() {
             const name = staffObj ? staffObj.full_name : `Staff #${task.staff_id}`;
             logs.push({
               id: `task-${task.id}`,
-              // Use current date as placeholder since we don't store task completion time in schema
               time: new Date(), 
-              text: `${name} earned +${task.points} points for "${task.title}"`,
-              type: 'success'
+              text: `${name} completed: "${task.title}"`,
+              isWarning: false,
+              icon: CheckCircle,
+              color: 'var(--success)',
+              points: task.points
             });
           }
         });
@@ -102,75 +116,160 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  return html`
-    <div>
-      <header style=${{ marginBottom: '2rem' }}>
-        <h1>Overview</h1>
-        <p>Welcome back, MD. Here's what's happening today.</p>
-      </header>
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
+    return "Good Evening";
+  };
 
-      <div className="dashboard-grid">
-        <div className="glass-card">
-          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '1rem' }}>Total Staff</h3>
-            <${Users} size=${24} color="var(--primary)" />
+  return html`
+    <div className="animate-slide-up">
+      <header style=${{ 
+        marginBottom: '2rem', 
+        padding: '2rem', 
+        background: 'linear-gradient(135deg, var(--primary) 0%, #312e81 100%)',
+        borderRadius: '16px',
+        color: 'white',
+        boxShadow: '0 20px 25px -5px rgba(79, 70, 229, 0.4), 0 10px 10px -5px rgba(79, 70, 229, 0.2)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style=${{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <h1 style=${{ color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '2rem' }}>
+              ${getGreeting()}, MD <${Sparkles} size=${28} color="#fbbf24" />
+            </h1>
+            <p style=${{ color: '#c7d2fe', fontSize: '1.1rem', margin: 0 }}>Here is your high-level overview for today.</p>
           </div>
-          <p className="stat-value">${stats.totalStaff}</p>
+          
+          ${topPerformer && html`
+            <div style=${{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '1rem 1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style=${{ background: '#fbbf24', borderRadius: '50%', padding: '0.5rem' }}>
+                <${Trophy} size=${20} color="#78350f" />
+              </div>
+              <div>
+                <div style=${{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#c7d2fe' }}>Top Performer</div>
+                <div style=${{ fontWeight: 'bold', fontSize: '1.1rem' }}>${topPerformer.full_name}</div>
+              </div>
+              <div style=${{ marginLeft: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.25rem 0.75rem', borderRadius: '99px', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                ${topPerformer.score} pts
+              </div>
+            </div>
+          `}
         </div>
         
-        <div className="glass-card">
+        {/* Decorative Background Elements */}
+        <div style=${{ position: 'absolute', right: '-5%', top: '-20%', width: '300px', height: '300px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(40px)' }}></div>
+        <div style=${{ position: 'absolute', left: '20%', bottom: '-50%', width: '200px', height: '200px', background: 'rgba(99,102,241,0.5)', borderRadius: '50%', filter: 'blur(40px)' }}></div>
+      </header>
+
+      <div className="dashboard-grid animate-slide-up delay-1">
+        <div className="glass-card" style=${{ borderTop: '4px solid var(--primary)' }}>
           <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '1rem' }}>Present Today</h3>
-            <${UserCheck} size=${24} color="var(--success)" />
+            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Workforce</h3>
+            <div style=${{ background: 'var(--primary-glow)', padding: '0.5rem', borderRadius: '8px' }}>
+              <${Users} size=${22} color="var(--primary)" />
+            </div>
           </div>
-          <p className="stat-value">${stats.presentToday}</p>
+          <p className="stat-value" style=${{ fontSize: '2.5rem' }}>${stats.totalStaff}</p>
+        </div>
+        
+        <div className="glass-card" style=${{ borderTop: '4px solid var(--success)' }}>
+          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Present Today</h3>
+            <div style=${{ background: 'rgba(16, 185, 129, 0.15)', padding: '0.5rem', borderRadius: '8px' }}>
+              <${UserCheck} size=${22} color="var(--success)" />
+            </div>
+          </div>
+          <p className="stat-value" style=${{ fontSize: '2.5rem' }}>${stats.presentToday}</p>
+          <div style=${{ marginTop: '1rem', height: '4px', background: '#f1f5f9', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style=${{ height: '100%', background: 'var(--success)', width: \`\${stats.totalStaff > 0 ? (stats.presentToday/stats.totalStaff)*100 : 0}%\`, transition: 'width 1s ease-out' }}></div>
+          </div>
         </div>
 
-        <div className="glass-card">
+        <div className="glass-card" style=${{ borderTop: '4px solid var(--danger)' }}>
           <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '1rem' }}>Absent Today</h3>
-            <${UserX} size=${24} color="var(--danger)" />
+            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Absent Today</h3>
+            <div style=${{ background: 'rgba(239, 68, 68, 0.15)', padding: '0.5rem', borderRadius: '8px' }}>
+              <${UserX} size=${22} color="var(--danger)" />
+            </div>
           </div>
-          <p className="stat-value">${stats.absentToday}</p>
+          <p className="stat-value" style=${{ fontSize: '2.5rem' }}>${stats.absentToday}</p>
         </div>
 
-        <div className="glass-card">
+        <div className="glass-card" style=${{ borderTop: '4px solid var(--secondary)' }}>
           <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '1rem' }}>Tasks Completed</h3>
-            <${Activity} size=${24} color="var(--secondary)" />
+            <h3 style=${{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tasks Completed</h3>
+            <div style=${{ background: 'rgba(14, 165, 233, 0.15)', padding: '0.5rem', borderRadius: '8px' }}>
+              <${Activity} size=${22} color="var(--secondary)" />
+            </div>
           </div>
-          <p className="stat-value">${stats.tasksCompleted}</p>
+          <p className="stat-value" style=${{ fontSize: '2.5rem' }}>${stats.tasksCompleted}</p>
+          <div style=${{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--success)', fontSize: '0.85rem', fontWeight: 'bold' }}>
+            <${TrendingUp} size=${16} /> <span>High Productivity</span>
+          </div>
         </div>
       </div>
 
-      <h2>Recent Activity</h2>
-      <div className="glass-panel" style=${{ padding: '1.5rem' }}>
-        ${recentLogs.length === 0 ? html`
-          <p style=${{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>
-            No recent activity to display.
-          </p>
-        ` : html`
-          <div style=${{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            ${recentLogs.map(log => html`
-              <div key=${log.id} style=${{ 
-                padding: '0.75rem 1rem', 
-                background: log.type === 'warning' ? '#fee2e2' : log.type === 'success' ? '#d1fae5' : '#f1f5f9',
-                borderLeft: `4px solid ${log.type === 'warning' ? 'var(--danger)' : log.type === 'success' ? 'var(--success)' : 'var(--primary)'}`,
-                borderRadius: '8px',
-                color: log.type === 'warning' ? 'var(--danger)' : log.type === 'success' ? 'var(--success)' : 'var(--text-primary)',
-                fontSize: '0.95rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}>
-                <span>${log.text}</span>
-                <span style=${{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
-                  ${log.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </div>
-            `)}
-          </div>
-        `}
+      <div className="animate-slide-up delay-2">
+        <h2 style=${{ fontSize: '1.25rem', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <${Activity} size=${20} color="var(--primary)" /> Live Operations Feed
+        </h2>
+        <div className="glass-card" style=${{ padding: '0' }}>
+          ${recentLogs.length === 0 ? html`
+            <div style=${{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+              <${Clock} size=${40} style=${{ opacity: 0.3, marginBottom: '1rem' }} />
+              <p style=${{ fontSize: '1.1rem' }}>No recent activity to display.</p>
+            </div>
+          ` : html`
+            <div style=${{ display: 'flex', flexDirection: 'column' }}>
+              ${recentLogs.map((log, index) => html`
+                <div key=${log.id} style=${{ 
+                  padding: '1.25rem 1.5rem', 
+                  borderBottom: index < recentLogs.length - 1 ? '1px solid var(--glass-border)' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  transition: 'background 0.2s ease',
+                  cursor: 'default',
+                  backgroundColor: log.isWarning ? 'rgba(254, 226, 226, 0.3)' : 'transparent'
+                }}
+                onMouseOver=${e => e.currentTarget.style.backgroundColor = 'rgba(248, 250, 252, 0.5)'}
+                onMouseOut=${e => e.currentTarget.style.backgroundColor = log.isWarning ? 'rgba(254, 226, 226, 0.3)' : 'transparent'}
+                >
+                  <div style=${{ 
+                    background: log.isWarning ? 'rgba(239, 68, 68, 0.1)' : 'rgba(241, 245, 249, 0.8)', 
+                    padding: '0.75rem', 
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: log.isWarning ? '0 0 0 2px rgba(239, 68, 68, 0.2)' : 'none'
+                  }}>
+                    <${log.icon} size=${20} color=${log.color} />
+                  </div>
+                  
+                  <div style=${{ flex: 1 }}>
+                    <div style=${{ fontWeight: '500', color: log.isWarning ? 'var(--danger)' : 'var(--text-primary)', fontSize: '1rem' }}>
+                      ${log.text}
+                      ${log.isWarning ? html`<span style=${{ marginLeft: '0.5rem', fontSize: '0.75rem', background: 'var(--danger)', color: 'white', padding: '0.1rem 0.5rem', borderRadius: '99px', fontWeight: 'bold' }}>PROXY ALERT</span>` : null}
+                    </div>
+                    <div style=${{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.2rem' }}>
+                      ${log.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                  </div>
+                  
+                  ${log.points ? html`
+                    <div style=${{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', padding: '0.4rem 0.75rem', borderRadius: '99px', fontWeight: 'bold', fontSize: '0.85rem' }}>
+                      +${log.points} pts
+                    </div>
+                  ` : null}
+                </div>
+              `)}
+            </div>
+          `}
+        </div>
       </div>
     </div>
   `;
