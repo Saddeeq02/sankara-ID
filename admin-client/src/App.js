@@ -53,45 +53,45 @@ function App() {
 
   if (!isAuthenticated) {
     return html`
-      <div style=${{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-gradient)' }}>
+      <div style=${{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="glass-card" style=${{ maxWidth: '400px', width: '90%', padding: '2.5rem' }}>
           <div style=${{ textAlign: 'center', marginBottom: '2rem' }}>
-            <h2 style=${{ fontSize: '1.75rem', marginBottom: '0.5rem', background: 'var(--text-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Sankara Admin</h2>
+            <h2 style=${{ fontSize: '1.75rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>Sankara Admin</h2>
             <p style=${{ color: 'var(--text-secondary)' }}>Sign in to access the portal</p>
           </div>
           
           <form onSubmit=${handleLogin} style=${{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             ${loginError && html`
-              <div style=${{ padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', fontSize: '0.875rem', textAlign: 'center' }}>
+              <div style=${{ padding: '0.75rem', background: '#fee2e2', color: '#ef4444', borderRadius: '8px', fontSize: '0.875rem', textAlign: 'center', border: '1px solid #fecaca' }}>
                 ${loginError}
               </div>
             `}
             
-            <div className="input-group">
-              <label>Username</label>
+            <div style=${{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <label style=${{ fontWeight: '500', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Username</label>
               <input 
                 type="text" 
                 value=${username}
                 onChange=${e => setUsername(e.target.value)}
-                className="glass-input" 
+                className="input-field" 
                 placeholder="Enter username"
                 required
               />
             </div>
             
-            <div className="input-group">
-              <label>Password</label>
+            <div style=${{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <label style=${{ fontWeight: '500', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Password</label>
               <input 
                 type="password" 
                 value=${password}
                 onChange=${e => setPassword(e.target.value)}
-                className="glass-input" 
+                className="input-field" 
                 placeholder="Enter password"
                 required
               />
             </div>
             
-            <button type="submit" className="glass-button" style=${{ marginTop: '1rem', width: '100%', background: 'var(--primary)', color: 'white' }}>
+            <button type="submit" className="btn btn-primary" style=${{ marginTop: '1rem', width: '100%', padding: '0.8rem' }}>
               Sign In
             </button>
           </form>
