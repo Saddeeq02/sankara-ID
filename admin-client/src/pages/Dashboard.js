@@ -159,7 +159,6 @@ export default function Dashboard() {
           `}
         </div>
         
-        {/* Decorative Background Elements */}
         <div style=${{ position: 'absolute', right: '-5%', top: '-20%', width: '300px', height: '300px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(40px)' }}></div>
         <div style=${{ position: 'absolute', left: '20%', bottom: '-50%', width: '200px', height: '200px', background: 'rgba(99,102,241,0.5)', borderRadius: '50%', filter: 'blur(40px)' }}></div>
       </header>
