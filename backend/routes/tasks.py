@@ -28,12 +28,12 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(models.get_db)):
     return db_task
 
 @router.get("/", response_model=list[schemas.TaskResponse])
-def get_tasks(db: Session = Depends(models.get_db)):
-    return db.query(models.Task).all()
+def get_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
+    return db.query(models.Task).offset(skip).limit(limit).all()
 
 @router.get("/staff/{staff_id}", response_model=list[schemas.TaskResponse])
-def get_staff_tasks(staff_id: int, db: Session = Depends(models.get_db)):
-    return db.query(models.Task).filter(models.Task.staff_id == staff_id).all()
+def get_staff_tasks(staff_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
+    return db.query(models.Task).filter(models.Task.staff_id == staff_id).offset(skip).limit(limit).all()
 
 @router.put("/{task_id}/complete", response_model=schemas.TaskResponse)
 def complete_task(task_id: int, db: Session = Depends(models.get_db)):

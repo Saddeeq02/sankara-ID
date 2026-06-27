@@ -51,10 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
       
       if (lastShownWeek != weekKey) {
         try {
-          final res = await http.get(Uri.parse("${getBaseUrl()}/staff/"));
+          final res = await http.get(Uri.parse("${getBaseUrl()}/staff/leaderboard?limit=1"));
           if (res.statusCode == 200) {
             final List<dynamic> allStaff = jsonDecode(res.body);
-            allStaff.sort((a, b) => (b['score'] ?? 0).compareTo(a['score'] ?? 0));
             
             if (allStaff.isNotEmpty) {
               final topPerformer = allStaff.first;

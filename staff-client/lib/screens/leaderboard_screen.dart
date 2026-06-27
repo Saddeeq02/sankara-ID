@@ -27,11 +27,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     _currentStaffId = prefs.getInt('staff_id');
 
     try {
-      final res = await http.get(Uri.parse("${getBaseUrl()}/staff/"));
+      final res = await http.get(Uri.parse("${getBaseUrl()}/staff/leaderboard?limit=25"));
       if (res.statusCode == 200) {
         final List<dynamic> data = jsonDecode(res.body);
-        // Sort by score descending
-        data.sort((a, b) => (b['score'] ?? 0).compareTo(a['score'] ?? 0));
         
         setState(() {
           _staffList = data;

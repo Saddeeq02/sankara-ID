@@ -50,8 +50,8 @@ class Attendance(Base):
     __tablename__ = "attendances"
 
     id = Column(Integer, primary_key=True, index=True)
-    staff_id = Column(Integer, ForeignKey("staff.id"))
-    date = Column(Date, default=lambda: datetime.utcnow().date())
+    staff_id = Column(Integer, ForeignKey("staff.id"), index=True)
+    date = Column(Date, default=lambda: datetime.utcnow().date(), index=True)
     clock_in_time = Column(DateTime, nullable=True)
     clock_out_time = Column(DateTime, nullable=True)
     is_proxy = Column(Boolean, default=False) # flagged if UUID doesn't match
@@ -67,8 +67,8 @@ class Task(Base):
     title = Column(String)
     description = Column(String)
     points = Column(Integer, default=10)
-    status = Column(String, default="pending") # pending, completed, approved
-    staff_id = Column(Integer, ForeignKey("staff.id"))
+    status = Column(String, default="pending", index=True) # pending, completed, approved
+    staff_id = Column(Integer, ForeignKey("staff.id"), index=True)
 
     assigned_to = relationship("Staff", back_populates="tasks")
 
@@ -76,7 +76,7 @@ class ScoreHistory(Base):
     __tablename__ = "score_history"
 
     id = Column(Integer, primary_key=True, index=True)
-    staff_id = Column(Integer, ForeignKey("staff.id"))
+    staff_id = Column(Integer, ForeignKey("staff.id"), index=True)
     month = Column(Integer)
     year = Column(Integer)
     score = Column(Integer)

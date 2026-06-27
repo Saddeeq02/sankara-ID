@@ -173,8 +173,8 @@ def clock_in_out(attendance: schemas.AttendanceCreate, db: Session = Depends(mod
         raise HTTPException(status_code=400, detail=error_msg)
 
 @router.get("/", response_model=list[schemas.AttendanceResponse])
-def get_all_attendance(db: Session = Depends(models.get_db)):
-    attendances = db.query(models.Attendance).all()
+def get_all_attendance(skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
+    attendances = db.query(models.Attendance).order_by(models.Attendance.date.desc(), models.Attendance.clock_in_time.desc()).offset(skip).limit(limit).all()
     result = []
     for att in attendances:
         staff_name = att.staff.full_name if att.staff else "Unknown"
@@ -192,8 +192,8 @@ def get_all_attendance(db: Session = Depends(models.get_db)):
     return result
 
 @router.get("/{staff_id}", response_model=list[schemas.AttendanceResponse])
-def get_staff_attendance(staff_id: int, db: Session = Depends(models.get_db)):
-    attendances = db.query(models.Attendance).filter(models.Attendance.staff_id == staff_id).all()
+def get_staff_attendance(staff_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
+    attendances = db.query(models.Attendance).filter(models.Attendance.staff_id == staff_id).order_by(models.Attendance.date.desc()).offset(skip).limit(limit).all()
     result = []
     for att in attendances:
         staff_name = att.staff.full_name if att.staff else "Unknown"

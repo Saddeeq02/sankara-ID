@@ -95,8 +95,8 @@ def login_staff(req: LoginRequest, db: Session = Depends(models.get_db)):
     return staff
 
 @router.get("/", response_model=list[schemas.StaffResponse])
-def get_all_staff(db: Session = Depends(models.get_db)):
-    return db.query(models.Staff).all()
+def get_all_staff(skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
+    return db.query(models.Staff).offset(skip).limit(limit).all()
 
 class FcmTokenUpdate(BaseModel):
     fcm_token: str
@@ -109,6 +109,10 @@ def update_fcm_token(staff_id: int, payload: FcmTokenUpdate, db: Session = Depen
     staff.fcm_token = payload.fcm_token
     db.commit()
     return {"message": "FCM token updated successfully"}
+
+@router.get("/leaderboard", response_model=list[schemas.StaffResponse])
+def get_leaderboard(limit: int = 50, db: Session = Depends(models.get_db)):
+    return db.query(models.Staff).order_by(models.Staff.score.desc()).limit(limit).all()
 
 @router.get("/{staff_id}", response_model=schemas.StaffResponse)
 def get_staff(staff_id: int, db: Session = Depends(models.get_db)):
