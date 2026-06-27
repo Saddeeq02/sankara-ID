@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = true;
   Timer? _notificationTimer;
   int _previousPendingTaskCount = -1;
+  Map<String, dynamic>? _topPerformer;
 
   @override
   void initState() {
@@ -156,6 +157,17 @@ class _HomeScreenState extends State<HomeScreen> {
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({'fcm_token': fcmToken}),
           ).catchError((_) => http.Response('', 500));
+        }
+
+        // Fetch Top Performer
+        final leadRes = await http.get(Uri.parse("${getBaseUrl()}/staff/leaderboard?limit=1"));
+        if (leadRes.statusCode == 200) {
+          final List<dynamic> leadData = jsonDecode(leadRes.body);
+          if (leadData.isNotEmpty) {
+            setState(() {
+              _topPerformer = leadData[0] as Map<String, dynamic>;
+            });
+          }
         }
       }
     } catch (e) {
@@ -290,6 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if (_topPerformer != null)
+                      _buildTopPerformerBanner(isDark),
+                      
                     // Stats Card
                     Container(
                       padding: const EdgeInsets.all(24),
@@ -474,6 +489,87 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTopPerformerBanner(bool isDark) {
+    // Use the fetched top performer. If the current user's name matches, customize the message!
+    final topName = _topPerformer!['full_name'];
+    final topScore = _topPerformer!['score'] ?? 0;
+    final isMe = topName == _fullName;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.amber.shade700, Colors.orange.shade500],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withValues(alpha: 0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.emoji_events, color: Colors.white, size: 32),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isMe ? "You're the Top Performer! 🏆" : "Current Top Performer",
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.1,
+                    textBaseline: TextBaseline.alphabetic,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isMe ? "Keep it up, $_fullName!" : topName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              "$topScore pts",
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
