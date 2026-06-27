@@ -28,6 +28,11 @@ def read_settings(db: Session = Depends(models.get_db)):
         ENFORCE_GEOFENCING=s.enforce_geofencing
     )
 
+@router.get("/debug/firebase")
+def debug_firebase():
+    from services.push import firebase_init_status
+    return {"firebase_init_status": firebase_init_status}
+
 @router.post("/", response_model=SettingsModel)
 def update_settings(settings: SettingsModel, db: Session = Depends(models.get_db)):
     s = get_settings_db(db)
