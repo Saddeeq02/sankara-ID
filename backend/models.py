@@ -40,6 +40,7 @@ class Staff(Base):
     is_active = Column(Boolean, default=True)
     score = Column(Integer, default=0)
     out_of_bounds_attempts = Column(Integer, default=0)
+    fcm_token = Column(String, nullable=True)
 
     attendances = relationship("Attendance", back_populates="staff")
     tasks = relationship("Task", back_populates="assigned_to")

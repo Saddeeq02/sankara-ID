@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'qr_scanner_screen.dart';
 import 'tasks_screen.dart';
+import 'leaderboard_screen.dart';
 import 'score_history_screen.dart';
 import 'attendance_history_screen.dart';
 import 'login_screen.dart';
@@ -21,11 +23,95 @@ class _HomeScreenState extends State<HomeScreen> {
   String _picturePath = "";
   int _score = 0;
   bool _isLoading = true;
+  Timer? _notificationTimer;
+  int _previousPendingTaskCount = -1;
 
   @override
   void initState() {
     super.initState();
     _loadStaffData();
+    _startNotificationPolling();
+  }
+
+  void _startNotificationPolling() {
+    // Check weekly leaderboard on startup
+    _checkWeeklyLeaderboard();
+    
+    _notificationTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      _checkForNewTasks();
+    });
+  }
+
+  Future<void> _checkWeeklyLeaderboard() async {
+    final now = DateTime.now();
+    if (now.weekday == DateTime.monday) {
+      final prefs = await SharedPreferences.getInstance();
+      final weekKey = "leaderboard_popup_${now.year}_${now.month}_${now.day}";
+      final lastShownWeek = prefs.getString('last_leaderboard_popup');
+      
+      if (lastShownWeek != weekKey) {
+        try {
+          final res = await http.get(Uri.parse("${getBaseUrl()}/staff/"));
+          if (res.statusCode == 200) {
+            final List<dynamic> allStaff = jsonDecode(res.body);
+            allStaff.sort((a, b) => (b['score'] ?? 0).compareTo(a['score'] ?? 0));
+            
+            if (allStaff.isNotEmpty) {
+              final topPerformer = allStaff.first;
+              if ((topPerformer['score'] ?? 0) > 0) {
+                if (mounted) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('🏆 Weekly Top Performer!'),
+                      content: Text('Congratulations to ${topPerformer['full_name']} for being #1 this week with ${topPerformer['score']} points!'),
+                      actions: [
+                        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Awesome!'))
+                      ],
+                    ),
+                  );
+                }
+                await prefs.setString('last_leaderboard_popup', weekKey);
+              }
+            }
+          }
+        } catch (_) {}
+      }
+    }
+  }
+
+  Future<void> _checkForNewTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    final staffId = prefs.getInt('staff_id');
+    if (staffId == null) return;
+
+    try {
+      final res = await http.get(Uri.parse("${getBaseUrl()}/tasks/staff/$staffId"));
+      if (res.statusCode == 200) {
+        final List<dynamic> tasks = jsonDecode(res.body);
+        final pendingCount = tasks.where((t) => t['status'] == 'pending').length;
+        
+        if (_previousPendingTaskCount != -1 && pendingCount > _previousPendingTaskCount) {
+          // New task assigned!
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('🔔 You have a new task assigned!'),
+                backgroundColor: Colors.blueAccent,
+                duration: Duration(seconds: 5),
+              ),
+            );
+          }
+        }
+        _previousPendingTaskCount = pendingCount;
+      }
+    } catch (_) {}
+  }
+
+  @override
+  void dispose() {
+    _notificationTimer?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadStaffData() async {
@@ -62,6 +148,16 @@ class _HomeScreenState extends State<HomeScreen> {
         await prefs.setString('role', _role);
         await prefs.setString('picture_path', _picturePath);
         await prefs.setInt('score', _score);
+        
+        // Sync FCM Token
+        final fcmToken = prefs.getString('fcm_token');
+        if (fcmToken != null) {
+          http.put(
+            Uri.parse("${getBaseUrl()}/staff/$staffId/fcm-token"),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({'fcm_token': fcmToken}),
+          ).catchError((_) => http.Response('', 500));
+        }
       }
     } catch (e) {
       // Ignore network errors and use cached data
@@ -106,6 +202,15 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: const Color(0xFF0D1A26),
               elevation: 0,
               actions: [
+                IconButton(
+                  icon: const Icon(Icons.notifications, color: Colors.white),
+                  tooltip: 'Notifications',
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('No new notifications right now!')),
+                    );
+                  },
+                ),
                 IconButton(
                   icon: const Icon(Icons.logout, color: Colors.white),
                   tooltip: 'Logout',
@@ -271,6 +376,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(builder: (context) => const TasksScreen()),
                             ).then((_) => _loadStaffData());
+                          },
+                        ),
+                        _buildActionCard(
+                          context,
+                          title: 'Leaderboard',
+                          icon: Icons.leaderboard,
+                          color: const Color(0xFF8E2DE2),
+                          gradient: const LinearGradient(colors: [Color(0xFF8E2DE2), Color(0xFF4A00E0)]),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LeaderboardScreen()),
+                            );
                           },
                         ),
                         _buildActionCard(

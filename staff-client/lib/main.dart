@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 
-void main() {
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  } catch (e) {
+    debugPrint("Firebase init failed: $e");
+  }
   runApp(const StaffClientApp());
 }
 
@@ -12,6 +26,19 @@ class StaffClientApp extends StatelessWidget {
 
   Future<bool> _checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
+    
+    // Request notification permissions
+    try {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      await messaging.requestPermission();
+      
+      // Get FCM token for backend
+      String? token = await messaging.getToken();
+      if (token != null) {
+        await prefs.setString('fcm_token', token);
+      }
+    } catch (_) {}
+
     return prefs.containsKey('staff_id');
   }
 

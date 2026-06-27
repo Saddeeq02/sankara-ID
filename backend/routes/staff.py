@@ -98,6 +98,18 @@ def login_staff(req: LoginRequest, db: Session = Depends(models.get_db)):
 def get_all_staff(db: Session = Depends(models.get_db)):
     return db.query(models.Staff).all()
 
+class FcmTokenUpdate(BaseModel):
+    fcm_token: str
+
+@router.put("/{staff_id}/fcm-token")
+def update_fcm_token(staff_id: int, payload: FcmTokenUpdate, db: Session = Depends(models.get_db)):
+    staff = db.query(models.Staff).filter(models.Staff.id == staff_id).first()
+    if not staff:
+        raise HTTPException(status_code=404, detail="Staff not found")
+    staff.fcm_token = payload.fcm_token
+    db.commit()
+    return {"message": "FCM token updated successfully"}
+
 @router.get("/{staff_id}", response_model=schemas.StaffResponse)
 def get_staff(staff_id: int, db: Session = Depends(models.get_db)):
     staff = db.query(models.Staff).filter(models.Staff.id == staff_id).first()

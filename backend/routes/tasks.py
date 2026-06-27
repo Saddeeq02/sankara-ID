@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import models, schemas
+from services.push import send_push_notification
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
@@ -14,6 +15,16 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(models.get_db)):
     db.add(db_task)
     db.commit()
     db.refresh(db_task)
+    
+    # Send Push Notification
+    if staff.fcm_token:
+        send_push_notification(
+            token=staff.fcm_token,
+            title="New Task Assigned!",
+            body=f"You have been assigned a new task: {db_task.title}",
+            data={"task_id": str(db_task.id)}
+        )
+        
     return db_task
 
 @router.get("/", response_model=list[schemas.TaskResponse])
