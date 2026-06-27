@@ -54,9 +54,14 @@ def clock_in_out(attendance: schemas.AttendanceCreate, db: Session = Depends(mod
                 if staff.out_of_bounds_attempts >= 2:
                     staff.score = (staff.score or 0) - 10
                     staff.out_of_bounds_attempts = 0 # reset after penalty
-                    location_warning = f"You are not at the office! Distance: {dist_str}. 10 Points deducted for repeat offense."
+                    db.commit()
+                    raise HTTPException(status_code=400, detail=f"You are not at the office! Distance: {dist_str}. 10 Points deducted for repeat offense.")
                 else:
-                    location_warning = f"Please be punctual and clock in at the office. Distance: {dist_str}."
+                    db.commit()
+                    raise HTTPException(status_code=400, detail=f"Please be punctual and clock in at the office. Distance: {dist_str}.")
+            else:
+                staff.out_of_bounds_attempts = 0
+                db.commit()
         
         # Use local time for punctuality checks
         now = datetime.now()

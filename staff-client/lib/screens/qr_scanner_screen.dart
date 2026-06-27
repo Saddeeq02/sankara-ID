@@ -10,20 +10,13 @@ import 'package:geolocator/geolocator.dart';
 import 'login_screen.dart'; // For getBaseUrl()
 
 Future<String> getDeviceUuid() async {
-  final deviceInfo = DeviceInfoPlugin();
-  if (kIsWeb) {
-    return "web-client-device";
+  final prefs = await SharedPreferences.getInstance();
+  String? uuid = prefs.getString('local_device_uuid');
+  if (uuid == null) {
+    uuid = "device_" + DateTime.now().millisecondsSinceEpoch.toString() + "_" + (1000 + (DateTime.now().microsecond % 9000)).toString();
+    await prefs.setString('local_device_uuid', uuid);
   }
-  try {
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.id;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? "ios-fallback-uuid";
-    }
-  } catch (_) {}
-  return "generic-device-uuid";
+  return uuid;
 }
 
 class QRScannerScreen extends StatefulWidget {
