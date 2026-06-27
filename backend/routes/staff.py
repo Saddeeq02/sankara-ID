@@ -11,13 +11,13 @@ from pydantic import BaseModel
 
 
 SUPABASE_URL = "https://srepwupmdnkbisyzixvy.supabase.co"
-SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyZXB3dXBtZG5rYmlzeXppeHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MDg1NDgsImV4cCI6MjA5Nzk4NDU0OH0.Ygk9FwOpdWgW0IcgWqu6xYymGPcyXf2xmmDASmJTwP4"
+SUPABASE_SERVICE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyZXB3dXBtZG5rYmlzeXppeHZ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjQwODU0OCwiZXhwIjoyMDk3OTg0NTQ4fQ.0ggdCbqLdPcYIaNq44sZ3McRqGu4IWMZNGwrxr7GRUg"
 
 def upload_to_supabase(file_bytes, filename, content_type="image/jpeg"):
     url = f"{SUPABASE_URL}/storage/v1/object/staff-pictures/{filename}"
     headers = {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": f"Bearer {SUPABASE_ANON_KEY}",
+        "apikey": SUPABASE_SERVICE_KEY,
+        "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}",
         "Content-Type": content_type
     }
     # Upsert to overwrite if it exists

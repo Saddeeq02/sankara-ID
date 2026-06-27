@@ -448,17 +448,25 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         c.setFillColorRGB(1, 1, 1, 1)
         c.circle(photo_x, photo_y, photo_r + 4, fill=1, stroke=0)
         
-        # Inner Photo
-        if picture_path and not os.path.isabs(picture_path):
-            picture_path = os.path.abspath(picture_path)
-
+        if picture_path:
+            img_data = picture_path
+            if picture_path.startswith('http'):
+                try:
+                    resp = requests.get(picture_path)
+                    if resp.status_code == 200:
+                        img_data = ImageReader(BytesIO(resp.content))
+                except:
+                    pass
+            elif os.path.exists(picture_path):
+                img_data = picture_path
+                
         c.saveState()
         p = c.beginPath()
         p.roundRect(photo_x - photo_r, photo_y - photo_r, photo_r * 2, photo_r * 2, photo_r)
         c.clipPath(p)
-        if picture_path and os.path.exists(picture_path):
+        if picture_path and img_data:
             try:
-                c.drawImage(picture_path, photo_x - photo_r, photo_y - photo_r, width=photo_r*2, height=photo_r*2)
+                c.drawImage(img_data, photo_x - photo_r, photo_y - photo_r, width=photo_r*2, height=photo_r*2)
             except:
                 c.setFillColorRGB(0.9, 0.9, 0.9, 1)
                 c.circle(photo_x, photo_y, photo_r, fill=1)
