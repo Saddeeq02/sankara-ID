@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'screens/home_screen.dart';
-import 'screens/login_screen.dart';
+import 'screens/splash_screen.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -70,38 +69,6 @@ class _StaffClientAppState extends State<StaffClientApp> with WidgetsBindingObse
       }
     }
   }
-
-  Future<bool> _checkLoginStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    // Request notification permissions
-    try {
-      FirebaseMessaging messaging = FirebaseMessaging.instance;
-      await messaging.requestPermission();
-
-      // Get FCM token for backend
-      String? token = await messaging.getToken();
-      if (token != null) {
-        await prefs.setString('fcm_token', token);
-      }
-    } catch (_) {}
-
-    final lastActivity = prefs.getInt('last_activity');
-    if (lastActivity != null && prefs.containsKey('staff_id')) {
-      final last = DateTime.fromMillisecondsSinceEpoch(lastActivity);
-      if (DateTime.now().difference(last).inMinutes >= 30) {
-        final username = prefs.getString('username');
-        await prefs.clear();
-        if (username != null) {
-          await prefs.setString('username', username);
-        }
-        return false;
-      }
-    }
-
-    return prefs.containsKey('staff_id');
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -115,22 +82,7 @@ class _StaffClientAppState extends State<StaffClientApp> with WidgetsBindingObse
         ),
         fontFamily: 'Outfit',
       ),
-      home: FutureBuilder<bool>(
-        future: _checkLoginStatus(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          if (snapshot.data == true) {
-            return const HomeScreen();
-          }
-          return const LoginScreen();
-        },
-      ),
+      home: const SplashScreen(),
     );
   }
 }

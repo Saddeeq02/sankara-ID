@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818151177608",
+    "project_id": "sankara-id",
+    "storage_bucket": "sankara-id.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818151177608:android:74a89f42711f67e2a18e3d",
+        "android_client_info": {
+          "package_name": "ng.brainiacs.sankara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnK26OdWk8c5I9X6R7JJ1EUEkkX8-o-bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
