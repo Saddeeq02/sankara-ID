@@ -304,9 +304,9 @@ p { color: var(--text-secondary); margin: 0 0 1rem 0; }
 
   /* Fix header actions overlapping on mobile */
   header {
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 1rem;
+    gap: 1rem !important;
   }
   
   header > div:last-child {
@@ -323,7 +323,7 @@ p { color: var(--text-secondary); margin: 0 0 1rem 0; }
   }
 
   /* Fix 1fr 2fr grids on mobile (Leaderboard, QR Code Generator) */
-  div[style*="gridTemplateColumns"] {
+  div[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
   }
 
