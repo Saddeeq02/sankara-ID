@@ -96,6 +96,11 @@ function App() {
               Sign In
             </button>
           </form>
+          <div style=${{ marginTop: '2rem', textAlign: 'center' }}>
+            <p style=${{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+              Developed by <a href="https://brainiacs.ng/" target="_blank" rel="noopener noreferrer" style=${{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '600' }}>Brainiacs Innovation</a>
+            </p>
+          </div>
         </div>
       </div>
     `;
@@ -197,6 +202,12 @@ function App() {
           >
             <${LogOut} size=${20} /> Logout
           </button>
+          <div style=${{ marginTop: '1.5rem', textAlign: 'center', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
+            <p style=${{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: 0 }}>
+              Developed by<br />
+              <a href="https://brainiacs.ng/" target="_blank" rel="noopener noreferrer" style=${{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '600' }}>Brainiacs Innovation</a>
+            </p>
+          </div>
         </nav>
       </aside>
       <main className="main-content">
