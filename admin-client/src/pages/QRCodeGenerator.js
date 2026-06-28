@@ -113,6 +113,17 @@ export default function QRCodeGenerator() {
               letter-spacing: 1px;
               box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
             }
+            .attribution {
+              position: absolute;
+              bottom: 30px;
+              font-size: 1.2rem;
+              color: rgba(255, 255, 255, 0.6);
+              letter-spacing: 1px;
+            }
+            .attribution span {
+              color: #38bdf8;
+              font-weight: 600;
+            }
           </style>
         </head>
         <body>
@@ -130,6 +141,10 @@ export default function QRCodeGenerator() {
                 ${location}
               </p>
               ${deviceUuidRequired ? '<div class="proxy-badge">Anti-Proxy Protection Active</div>' : ''}
+            </div>
+            
+            <div class="attribution">
+              Developed by <span>Brainiacs Innovation</span>
             </div>
           </div>
           <script>
@@ -249,6 +264,10 @@ export default function QRCodeGenerator() {
                   Anti-Proxy Protection Active
                 </div>
               ` : null}
+            </div>
+            
+            <div style=${{ position: 'absolute', bottom: '-40px', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', letterSpacing: '1px' }}>
+              Developed by <span style=${{ color: '#38bdf8', fontWeight: '600' }}>Brainiacs Innovation</span>
             </div>
           </div>
 
