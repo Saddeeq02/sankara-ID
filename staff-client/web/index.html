@@ -105,6 +105,20 @@
     </div>
   </div>
 
+  <div id="android-install-prompt" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 9999; font-family: -apple-system, sans-serif; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <img src="icons/Icon-192.png" style="width: 48px; height: 48px; border-radius: 12px;" />
+      <div>
+        <h4 style="margin: 0 0 4px 0; color: #111; font-size: 16px;">Sankara Staff App</h4>
+        <p style="margin: 0; color: #666; font-size: 13px;">Install for faster access</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button onclick="closeAndroidPrompt()" style="flex: 1; padding: 10px; border: none; background: #f1f5f9; color: #333; border-radius: 8px; font-weight: 600; cursor: pointer;">Not Now</button>
+      <button onclick="installAndroidApp()" style="flex: 2; padding: 10px; border: none; background: #4F46E5; color: white; border-radius: 8px; font-weight: 600; cursor: pointer;">Install App</button>
+    </div>
+  </div>
+
   <script>
     // Detect iOS
     const isIos = () => {
@@ -124,17 +138,61 @@
       localStorage.setItem('ios_prompt_dismissed', 'true');
     }
 
-    // Show prompt if iOS, not standalone, and not previously dismissed
-    window.onload = () => {
+    // iOS prompt logic
+    window.addEventListener('load', () => {
       if (isIos() && !isInStandaloneMode() && !localStorage.getItem('ios_prompt_dismissed')) {
         setTimeout(() => {
           const prompt = document.getElementById('ios-install-prompt');
           prompt.style.display = 'block';
-          // Small delay to allow display:block to apply before animating transform
           setTimeout(() => prompt.classList.add('visible'), 50);
-        }, 2000); // Show after 2 seconds
+        }, 2000); 
       }
-    };
+    });
+
+    // Android/Chrome Install Prompt Logic
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      
+      // Show our custom Android prompt if not dismissed
+      if (!isIos() && !isInStandaloneMode() && !localStorage.getItem('android_prompt_dismissed')) {
+        setTimeout(() => {
+          document.getElementById('android-install-prompt').style.display = 'block';
+        }, 1500); // Wait 1.5s after load
+      }
+    });
+
+    function closeAndroidPrompt() {
+      document.getElementById('android-install-prompt').style.display = 'none';
+      localStorage.setItem('android_prompt_dismissed', 'true');
+    }
+
+    async function installAndroidApp() {
+      document.getElementById('android-install-prompt').style.display = 'none';
+      if (deferredPrompt) {
+        // Show the native install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      }
+    }
+
+    window.addEventListener('appinstalled', () => {
+      // Clear the deferredPrompt so it can be garbage collected
+      deferredPrompt = null;
+      document.getElementById('android-install-prompt').style.display = 'none';
+      console.log('PWA was installed');
+    });
   </script>
 
   <!--
