@@ -33,6 +33,110 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!-- iOS PWA Install Prompt -->
+  <style>
+    #ios-install-prompt {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 20px 20px 40px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #ios-install-prompt.visible {
+      display: block;
+      transform: translateY(0);
+    }
+    .ios-prompt-content {
+      color: #333;
+    }
+    .ios-prompt-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      color: #1a1a1a;
+    }
+    .ios-prompt-text {
+      font-size: 15px;
+      line-height: 1.4;
+      margin: 0 0 15px 0;
+      color: #555;
+    }
+    .ios-icon-share {
+      display: inline-block;
+      width: 20px;
+      height: 24px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>') no-repeat center;
+      vertical-align: middle;
+      margin: 0 4px;
+    }
+    .ios-close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      line-height: 1;
+      color: #999;
+      cursor: pointer;
+      padding: 5px;
+    }
+  </style>
+
+  <div id="ios-install-prompt">
+    <button class="ios-close-btn" onclick="closeIosPrompt()">&times;</button>
+    <div class="ios-prompt-content">
+      <h3 class="ios-prompt-title">Install Sankara App</h3>
+      <p class="ios-prompt-text">
+        Install this app on your iPhone for the best experience. Tap the <span class="ios-icon-share"></span> Share icon at the bottom of Safari, then scroll down and select <strong>"Add to Home Screen"</strong>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Detect iOS
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    // Detect if running as standalone PWA
+    const isInStandaloneMode = () => {
+      return ('standalone' in window.navigator) && (window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches;
+    };
+
+    function closeIosPrompt() {
+      const prompt = document.getElementById('ios-install-prompt');
+      prompt.style.transform = 'translateY(100%)';
+      setTimeout(() => prompt.style.display = 'none', 400);
+      localStorage.setItem('ios_prompt_dismissed', 'true');
+    }
+
+    // Show prompt if iOS, not standalone, and not previously dismissed
+    window.onload = () => {
+      if (isIos() && !isInStandaloneMode() && !localStorage.getItem('ios_prompt_dismissed')) {
+        setTimeout(() => {
+          const prompt = document.getElementById('ios-install-prompt');
+          prompt.style.display = 'block';
+          // Small delay to allow display:block to apply before animating transform
+          setTimeout(() => prompt.classList.add('visible'), 50);
+        }, 2000); // Show after 2 seconds
+      }
+    };
+  </script>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
