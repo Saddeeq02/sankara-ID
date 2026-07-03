@@ -100,10 +100,22 @@ class _SplashScreenState extends State<SplashScreen> {
               },
               child: Hero(
                 tag: 'app_logo',
-                child: Image.asset(
-                  'assets/logo.png',
-                  width: 200,
-                  fit: BoxFit.contain,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.4),
+                        blurRadius: 80.0,
+                        spreadRadius: 20.0,
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    'assets/logo.png',
+                    width: 200,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
