@@ -6,7 +6,7 @@ import Leaderboard from './pages/Leaderboard.js';
 import AttendanceLogs from './pages/AttendanceLogs.js';
 import QRCodeGenerator from './pages/QRCodeGenerator.js';
 import DevSettings from './pages/DevSettings.js';
-import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X, LogOut, ExternalLink } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
@@ -194,6 +194,16 @@ function App() {
           >
             <${Settings} size=${20} /> Dev Mode
           </button>
+
+          <a 
+            href="/admin" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', textDecoration: 'none', marginTop: '1rem' }}
+          >
+            <${ExternalLink} size=${20} /> Public CMS
+          </a>
           
           <button 
             onClick=${handleLogout} 
