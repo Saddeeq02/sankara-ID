@@ -136,7 +136,7 @@ function App() {
       <aside className=${`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h2 style=${{ fontSize: '1.5rem', margin: 0 }}>Sankara ID</h2>
+            <h2 style=${{ fontSize: '1.5rem', margin: 0 }}>Sankara Admin</h2>
             <p style=${{ fontSize: '0.875rem', margin: '0.5rem 0 0 0' }}>Admin Portal</p>
           </div>
           <button 
