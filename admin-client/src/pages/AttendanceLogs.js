@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { Search, ShieldAlert, CheckCircle, RefreshCw } from 'lucide-react';
+import { Search, ShieldAlert, CheckCircle, RefreshCw, Calendar, Users, ShieldCheck } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
 export default function AttendanceLogs() {
   const [logs, setLogs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterMonth, setFilterMonth] = useState('');
+  const [filterDate, setFilterDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   async function fetchLogs() {
@@ -39,104 +39,161 @@ export default function AttendanceLogs() {
       logIdStr.includes(searchLower) ||
       staffIdStr.includes(searchLower);
 
-    let matchesMonth = true;
-    if (filterMonth) {
-      const logMonth = log.date.substring(0, 7); // extract YYYY-MM
-      matchesMonth = logMonth === filterMonth;
+    let matchesDate = true;
+    if (filterDate) {
+      const logDate = log.date.substring(0, 10); // extract YYYY-MM-DD
+      matchesDate = logDate === filterDate;
     }
 
-    return matchesSearch && matchesMonth;
+    return matchesSearch && matchesDate;
   });
 
+  // Calculate high-end metrics based on filtered results
+  const totalCount = filteredLogs.length;
+  const verifiedCount = filteredLogs.filter(log => !log.is_proxy).length;
+  const proxyCount = filteredLogs.filter(log => log.is_proxy).length;
+
   return html`
-    <div>
-      <header style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+    <div className="animate-slide-up">
+      <!-- Page Header -->
+      <header style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '15px' }}>
         <div>
-          <h1>Attendance Logs</h1>
-          <p>Daily clock-in and clock-out activity with anti-proxy verification.</p>
+          <h1 style=${{ fontSize: '2.25rem', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 6px' }}>Attendance Log Hub</h1>
+          <p style=${{ margin: 0, color: 'var(--text-secondary)', fontWeight: 500 }}>Real-time clock-in monitoring with secure anti-proxy matching.</p>
         </div>
-        <button className="btn btn-glass" onClick=${fetchLogs} style=${{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-          <${RefreshCw} size=${18} /> Refresh Logs
+        <button className="btn btn-primary" onClick=${fetchLogs} style=${{ display: 'inline-flex', alignItems: 'center', gap: '10px', borderRadius: '12px', padding: '12px 24px', fontWeight: 700 }}>
+          <${RefreshCw} size=${18} /> Refresh Records
         </button>
       </header>
 
-      <div className="glass-panel" style=${{ padding: '1.5rem', marginBottom: '2rem' }}>
-        <div style=${{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-          <div style=${{ position: 'relative', flex: 1, maxWidth: '400px' }}>
-            <${Search} size=${20} style=${{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
+      <!-- Stats Summary Widget Cards -->
+      <div style=${{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+        <!-- Stat Card 1 -->
+        <div className="glass-panel" style=${{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '20px', border: '1px solid var(--glass-border)' }}>
+          <div style=${{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(79, 70, 229, 0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <${Users} size=${22} />
+          </div>
+          <div>
+            <div style=${{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Shifts</div>
+            <div style=${{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '4px' }}>${isLoading ? '...' : totalCount}</div>
+          </div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div className="glass-panel" style=${{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '20px', border: '1px solid var(--glass-border)' }}>
+          <div style=${{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <${ShieldCheck} size=${22} />
+          </div>
+          <div>
+            <div style=${{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verified Passes</div>
+            <div style=${{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--success)', marginTop: '4px' }}>${isLoading ? '...' : verifiedCount}</div>
+          </div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div className="glass-panel" style=${{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '20px', border: '1px solid var(--glass-border)' }}>
+          <div style=${{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <${ShieldAlert} size=${22} />
+          </div>
+          <div>
+            <div style=${{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Proxy Alarms</div>
+            <div style=${{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--danger)', marginTop: '4px' }}>${isLoading ? '...' : proxyCount}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Logs Panel -->
+      <div className="glass-panel" style=${{ padding: '2rem', border: '1px solid var(--glass-border)' }}>
+        <!-- Filters Control Bar -->
+        <div style=${{ display: 'flex', gap: '16px', marginBottom: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <!-- Search -->
+          <div style=${{ position: 'relative', flex: 1, minWidth: '280px' }}>
+            <${Search} size=${20} style=${{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
             <input 
               type="text" 
               className="input-field" 
-              placeholder="Search by name, Log ID, or Staff ID..." 
-              style=${{ paddingLeft: '2.5rem' }} 
+              placeholder="Search staff name, Log ID, or Staff ID..." 
+              style=${{ paddingLeft: '3rem', borderRadius: '12px', border: '1px solid var(--glass-border)', paddingRight: '16px' }} 
               value=${searchTerm}
               onChange=${e => setSearchTerm(e.target.value)}
             />
           </div>
-          <div style=${{ width: '200px' }}>
+          
+          <!-- Daily Date Picker -->
+          <div style=${{ position: 'relative', width: '220px' }}>
+            <${Calendar} size=${18} style=${{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', pointerEvents: 'none' }} />
             <input
-              type="month"
+              type="date"
               className="input-field"
-              value=${filterMonth}
-              onChange=${e => setFilterMonth(e.target.value)}
-              title="Filter by Month"
-              style=${{ colorScheme: 'dark' }}
+              value=${filterDate}
+              onChange=${e => setFilterDate(e.target.value)}
+              title="Filter by Specific Date"
+              style=${{ paddingLeft: '3rem', borderRadius: '12px', border: '1px solid var(--glass-border)' }}
             />
           </div>
+
+          <!-- Reset Filter Button -->
+          ${filterDate && html`
+            <button className="btn btn-glass" onClick=${() => setFilterDate('')} style=${{ borderRadius: '12px', padding: '12px 20px', fontWeight: 600 }}>
+              Clear Date
+            </button>
+          `}
         </div>
 
-        <div className="table-container">
-          <table>
+        <!-- Attendance Data Table -->
+        <div className="table-container" style=${{ borderRadius: '14px', border: '1px solid var(--glass-border)', overflow: 'hidden' }}>
+          <table style=${{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr>
-                <th>Log ID</th>
-                <th>Staff Name</th>
-                <th>Date</th>
-                <th>Clock In</th>
-                <th>Clock Out</th>
-                <th>Anti-Proxy Status</th>
+              <tr style=${{ background: '#f8fafc' }}>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Log ID</th>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Staff Name</th>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Date</th>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Clock In</th>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Clock Out</th>
+                <th style=${{ padding: '16px 24px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em' }}>Anti-Proxy Status</th>
               </tr>
             </thead>
             <tbody>
               ${isLoading ? html`
                 <tr>
-                  <td colSpan="6" style=${{ textAlign: 'center', padding: '3rem' }}>
-                    <div style=${{ color: 'var(--text-primary)' }}>Loading logs...</div>
+                  <td colSpan="6" style=${{ textAlign: 'center', padding: '4rem' }}>
+                    <div style=${{ color: 'var(--text-secondary)', fontWeight: 600 }}>Syncing log database...</div>
                   </td>
                 </tr>
               ` : filteredLogs.length === 0 ? html`
                 <tr>
-                  <td colSpan="6" style=${{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
-                    No attendance logs found.
+                  <td colSpan="6" style=${{ textAlign: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>
+                    <div style=${{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '4px' }}>No Attendance Logs Found</div>
+                    <div style=${{ fontSize: '0.95rem' }}>No activity records match the selected date or search term.</div>
                   </td>
                 </tr>
               ` : filteredLogs.map((log) => html`
-                <tr key=${log.id}>
-                  <td>#ATT-${String(log.id).padStart(5, '0')}</td>
-                  <td style=${{ fontWeight: 500, color: 'var(--text-primary)' }}>${log.staff_name || `Staff ID: ${log.staff_id}`}</td>
-                  <td>${new Date(log.date).toLocaleDateString()}</td>
-                  <td>
+                <tr key=${log.id} style=${{ transition: 'background-color 0.2s' }}>
+                  <td style=${{ padding: '18px 24px', fontWeight: 700, color: 'var(--text-secondary)' }}>#ATT-${String(log.id).padStart(5, '0')}</td>
+                  <td style=${{ padding: '18px 24px', fontWeight: 700, color: 'var(--text-primary)' }}>${log.staff_name || `Staff ID: ${log.staff_id}`}</td>
+                  <td style=${{ padding: '18px 24px', color: 'var(--text-secondary)' }}>${new Date(log.date).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                  <td style=${{ padding: '18px 24px' }}>
                     ${log.clock_in_time ? html`
-                      <span style=${{ color: 'var(--success-color)', fontWeight: 'bold' }}>
+                      <span style=${{ color: 'var(--success)', fontWeight: 700 }}>
                         ${new Date(log.clock_in_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                       </span>
                     ` : html`<span style=${{ color: 'var(--text-secondary)' }}>--</span>`}
                   </td>
-                  <td>
+                  <td style=${{ padding: '18px 24px' }}>
                     ${log.clock_out_time ? html`
-                      <span style=${{ color: 'var(--warning-color)', fontWeight: 'bold' }}>
+                      <span style=${{ color: '#f59e0b', fontWeight: 700 }}>
                         ${new Date(log.clock_out_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                       </span>
                     ` : html`<span style=${{ color: 'var(--text-secondary)' }}>--</span>`}
                   </td>
-                  <td>
+                  <td style=${{ padding: '18px 24px' }}>
                     ${log.is_proxy ? html`
-                      <span className="badge badge-danger" style=${{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <${ShieldAlert} size=${14} /> PROXY DETECTED
+                      <span className="badge badge-danger" style=${{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', borderRadius: '100px', fontWeight: 700 }}>
+                        <${ShieldAlert} size=${14} /> PROXY ALARM
                       </span>
                     ` : html`
-                      <span className="badge badge-success" style=${{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <${CheckCircle} size=${14} /> VERIFIED MATCH
+                      <span className="badge badge-success" style=${{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', borderRadius: '100px', fontWeight: 700 }}>
+                        <${CheckCircle} size=${14} /> VERIFIED PASS
                       </span>
                     `}
                   </td>
