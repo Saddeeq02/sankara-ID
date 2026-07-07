@@ -196,13 +196,13 @@ function App() {
           </button>
 
           <a 
-            href="/admin" 
+            href="https://sankara-etbr.vercel.app/admin/login?token=sankara_super_secret_token_123" 
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link"
             style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', textDecoration: 'none', marginTop: '1rem' }}
           >
-            <${ExternalLink} size=${20} /> Public CMS
+            <${ExternalLink} size=${20} /> Manage Website
           </a>
           
           <button 
