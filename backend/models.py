@@ -45,6 +45,7 @@ class Staff(Base):
     attendances = relationship("Attendance", back_populates="staff")
     tasks = relationship("Task", back_populates="assigned_to")
     score_histories = relationship("ScoreHistory", back_populates="staff", cascade="all, delete-orphan")
+    complaints = relationship("Complaint", back_populates="staff", cascade="all, delete-orphan")
 
 class Attendance(Base):
     __tablename__ = "attendances"
@@ -82,6 +83,29 @@ class ScoreHistory(Base):
     score = Column(Integer)
 
     staff = relationship("Staff", back_populates="score_histories")
+
+class Complaint(Base):
+    __tablename__ = "complaints"
+
+    id = Column(Integer, primary_key=True, index=True)
+    staff_id = Column(Integer, ForeignKey("staff.id"), index=True)
+    type = Column(String) # absence, delay, other
+    title = Column(String)
+    description = Column(String)
+    status = Column(String, default="pending", index=True) # pending, approved_with_points, approved_without_points, rejected
+    points_awarded = Column(Integer, default=0)
+    md_response = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    staff = relationship("Staff", back_populates="complaints")
+
+class Announcement(Base):
+    __tablename__ = "announcements"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    content = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 class SystemSettings(Base):
     __tablename__ = "system_settings"

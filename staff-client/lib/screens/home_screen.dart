@@ -9,6 +9,8 @@ import 'leaderboard_screen.dart';
 import 'score_history_screen.dart';
 import 'attendance_history_screen.dart';
 import 'login_screen.dart';
+import 'complaints_screen.dart';
+import 'announcements_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -215,10 +217,11 @@ class _HomeScreenState extends State<HomeScreen> {
               actions: [
                 IconButton(
                   icon: const Icon(Icons.notifications, color: Colors.white),
-                  tooltip: 'Notifications',
+                  tooltip: 'Announcements',
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('No new notifications right now!')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AnnouncementsScreen()),
                     );
                   },
                 ),
@@ -428,6 +431,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const AttendanceHistoryScreen()),
+                            );
+                          },
+                        ),
+                        _buildActionCard(
+                          context,
+                          title: 'Excuses / Complaints',
+                          icon: Icons.chat_bubble_outline,
+                          color: const Color(0xFF11998E),
+                          gradient: const LinearGradient(colors: [Color(0xFF11998E), Color(0xFF38EF7D)]),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ComplaintsScreen()),
+                            ).then((_) => _loadStaffData());
+                          },
+                        ),
+                        _buildActionCard(
+                          context,
+                          title: 'Announcements',
+                          icon: Icons.campaign,
+                          color: const Color(0xFFF2994A),
+                          gradient: const LinearGradient(colors: [Color(0xFFFF512F), Color(0xFFF2994A)]),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AnnouncementsScreen()),
                             );
                           },
                         ),

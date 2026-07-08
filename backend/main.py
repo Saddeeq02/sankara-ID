@@ -23,12 +23,14 @@ app.add_middleware(
 # Serve uploaded profile pictures
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-from routes import staff, attendance, tasks, settings
+from routes import staff, attendance, tasks, settings, complaints, announcements
 
 app.include_router(staff.router)
 app.include_router(attendance.router)
 app.include_router(tasks.router)
 app.include_router(settings.router)
+app.include_router(complaints.router)
+app.include_router(announcements.router)
 
 @app.get("/")
 def read_root():

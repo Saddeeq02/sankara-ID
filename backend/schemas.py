@@ -93,3 +93,46 @@ class ScoreHistoryResponse(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+
+# --- Complaint Schemas ---
+class ComplaintBase(BaseModel):
+    type: str
+    title: str
+    description: str
+    staff_id: int
+
+class ComplaintCreate(ComplaintBase):
+    pass
+
+class ComplaintRespondPayload(BaseModel):
+    status: str # approved_with_points, approved_without_points, rejected
+    points_awarded: int = 0
+    md_response: Optional[str] = None
+
+class ComplaintResponse(ComplaintBase):
+    id: int
+    status: str
+    points_awarded: int
+    md_response: Optional[str] = None
+    created_at: datetime
+    staff_name: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+# --- Announcement Schemas ---
+class AnnouncementBase(BaseModel):
+    title: str
+    content: str
+
+class AnnouncementCreate(AnnouncementBase):
+    pass
+
+class AnnouncementResponse(AnnouncementBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+        from_attributes = True

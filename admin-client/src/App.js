@@ -6,7 +6,9 @@ import Leaderboard from './pages/Leaderboard.js';
 import AttendanceLogs from './pages/AttendanceLogs.js';
 import QRCodeGenerator from './pages/QRCodeGenerator.js';
 import DevSettings from './pages/DevSettings.js';
-import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X, LogOut, ExternalLink } from 'lucide-react';
+import Complaints from './pages/Complaints.js';
+import Announcements from './pages/Announcements.js';
+import { LayoutDashboard, Users, Trophy, Calendar, QrCode, Settings, Menu, X, LogOut, ExternalLink, MessageSquare, Megaphone } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
@@ -119,6 +121,10 @@ function App() {
         return html`<${AttendanceLogs} />`;
       case 'qr':
         return html`<${QRCodeGenerator} />`;
+      case 'complaints':
+        return html`<${Complaints} />`;
+      case 'announcements':
+        return html`<${Announcements} />`;
       case 'settings':
         return html`<${DevSettings} />`;
       default:
@@ -183,6 +189,20 @@ function App() {
             style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
           >
             <${Trophy} size=${20} /> Leaderboard
+          </button>
+          <button 
+            onClick=${() => setCurrentPage('complaints')} 
+            className=${`nav-link ${currentPage === 'complaints' ? 'active' : ''}`}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <${MessageSquare} size=${20} /> Complaints
+          </button>
+          <button 
+            onClick=${() => setCurrentPage('announcements')} 
+            className=${`nav-link ${currentPage === 'announcements' ? 'active' : ''}`}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <${Megaphone} size=${20} /> Announcements
           </button>
           
           <div style=${{ margin: '1.5rem 0', borderTop: '1px solid var(--border-color)' }}></div>
