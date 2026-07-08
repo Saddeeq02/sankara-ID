@@ -380,7 +380,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                                         const SizedBox(height: 4),
                                         Text(
                                           response,
-                                          style: const TextStyle(color: Colors.white80, fontSize: 13),
+                                          style: const TextStyle(color: Colors.white70, fontSize: 13),
                                         ),
                                       ],
                                     ),
