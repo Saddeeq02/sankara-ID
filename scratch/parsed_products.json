@@ -1,0 +1,578 @@
+[
+  {
+    "id": "p-1",
+    "name": "13HP Tata Power Tiller",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/13HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.30 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/13HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.30 AM.jpeg",
+      "/assets/products_staging/OTHER/13HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.23 AM.jpeg"
+    ],
+    "specs": [
+      "13 HP Heavy-Duty Engine",
+      "Dual-Speed Transmission",
+      "Extra-Wide Rotary Tines",
+      "Reinforced Mechanical Frame"
+    ],
+    "task": "Medium-scale soil cultivation, rotary plowing, and hauling in smallholder fields or hard clay soils.",
+    "description": "Providing nearly double the power of the smaller model, the 13HP Tata Power Tiller handles tough, compacted soils with ease. It supports deeper row-tilling and can pull small farm carts, making it a rugged and versatile primary tool for medium-scale vegetable farms.",
+    "status": "Active"
+  },
+  {
+    "id": "p-2",
+    "name": "4 ROW CORN HARVESTER HEADER",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/4 ROW CORN HARVESTER HEADER/WhatsApp Image 2026-07-09 at 11.34.04 AM (1).jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/4 ROW CORN HARVESTER HEADER/WhatsApp Image 2026-07-09 at 11.34.04 AM (1).jpeg",
+      "/assets/products_staging/OTHER/4 ROW CORN HARVESTER HEADER/WhatsApp Image 2026-07-09 at 11.34.22 AM (1).jpeg",
+      "/assets/products_staging/OTHER/4 ROW CORN HARVESTER HEADER/WhatsApp Image 2026-07-09 at 11.34.04 AM.jpeg"
+    ],
+    "specs": [
+      "Premium Quality Build",
+      "High Performance Specs"
+    ],
+    "task": "General agricultural operations and heavy-duty field support.",
+    "description": "The 4 ROW CORN HARVESTER HEADER is a high-reliability choice designed for modern agricultural operations.",
+    "status": "Active"
+  },
+  {
+    "id": "p-3",
+    "name": "7HP Tata Power Tiller",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/7HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.24 AM (1).jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/7HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.24 AM (1).jpeg",
+      "/assets/products_staging/OTHER/7HP Tata Power Tiller/WhatsApp Image 2026-07-09 at 11.34.29 AM (1).jpeg"
+    ],
+    "specs": [
+      "7 HP Gasoline/Diesel Engine",
+      "Compact Walking Frame",
+      "Multi-Blade Rotary Tines",
+      "Adjustable Handlebars"
+    ],
+    "task": "Small-scale soil tilling, weeding, and seedbed preparation in home gardens, narrow orchards, and greenhouses.",
+    "description": "The 7HP Tata Power Tiller is a light, agile walk-behind cultivator built for intensive work in tight spaces. Perfect for smallholders and vegetable gardeners, it breaks up topsoil and cuts down weeds with minimal user effort, navigating narrow pathways where full-sized tractors cannot fit.",
+    "status": "Active"
+  },
+  {
+    "id": "p-4",
+    "name": "Bamford Baler",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Bamford Baler/BamfordBaler-x1zE2RlD.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Bamford Baler/BamfordBaler-x1zE2RlD.jpeg"
+    ],
+    "specs": [
+      "High-Density Compression Chamber",
+      "Automated Knotter System",
+      "Adjustable Bale Size",
+      "PTO Driven"
+    ],
+    "task": "Gathering and compressing loose hay, straw, or forage into compact, transportable, and stackable bales.",
+    "description": "The Bamford Baler is an essential implement for managing post-harvest straw and livestock forage. It cleans fields by pulling in loose material, compacting it inside a high-density chamber, and securing it with an automated knotting mechanism. The resulting uniform bales are easy to transport and store over long winters.",
+    "status": "Active"
+  },
+  {
+    "id": "p-5",
+    "name": "Bamford Forage Harvester (Chopper)",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Bamford Forage Harvester (Chopper)/WhatsApp Image 2026-07-09 at 11.34.01 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Bamford Forage Harvester (Chopper)/WhatsApp Image 2026-07-09 at 11.34.01 AM.jpeg",
+      "/assets/products_staging/OTHER/Bamford Forage Harvester (Chopper)/BamfordForageHarvesterChopper-DfRrIS-T.jpeg"
+    ],
+    "specs": [
+      "PTO Driven",
+      "High-Speed Cutting Flywheel",
+      "Adjustable Chop Length",
+      "Directional Discharge Chute"
+    ],
+    "task": "Cutting and fine-chopping green fodder crops (such as maize or sorghum) for high-quality silage production.",
+    "description": "This tractor-driven forage harvester cuts green standing crops and immediately processes them through a high-speed chopping mechanism. It guarantees uniform chop lengths, which optimizes anaerobic compaction during silage fermentation, improving the overall nutritional retention of livestock feed.",
+    "status": "Active"
+  },
+  {
+    "id": "p-6",
+    "name": "THRESHER",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/THRESHER/WhatsApp Image 2026-07-09 at 11.34.05 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/THRESHER/WhatsApp Image 2026-07-09 at 11.34.05 AM.jpeg",
+      "/assets/products_staging/OTHER/THRESHER/WhatsApp Image 2026-07-09 at 11.33.51 AM.jpeg",
+      "/assets/products_staging/OTHER/THRESHER/WhatsApp Image 2026-07-09 at 11.34.06 AM.jpeg"
+    ],
+    "specs": [
+      "Premium Quality Build",
+      "High Performance Specs"
+    ],
+    "task": "General agricultural operations and heavy-duty field support.",
+    "description": "The THRESHER is a high-reliability choice designed for modern agricultural operations.",
+    "status": "Active"
+  },
+  {
+    "id": "p-7",
+    "name": "Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.27 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.27 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.26 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.33.50 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.27 AM (1).jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-4 No-Till Planter with Fertilizer Applicator/FertilizerApplicator4Planter--V26CKtd.jpeg"
+    ],
+    "specs": [
+      "4-Row Seeding Assembly",
+      "No-Till Disc Openers",
+      "Integrated Dual Fertilizer Hoppers",
+      "Depth-Control Press Wheels"
+    ],
+    "task": "Simultaneous direct seeding and precise fertilizer placement into unplowed crop fields in a single pass.",
+    "description": "The Tata 2BYZF-4 is an advanced 4-row planter engineered for conservation agriculture. Its sharp disc cutters cut through old crop residues to place seeds directly into the unplowed earth, while simultaneously laying down fertilizer. This method protects the soil structure and conserves ground moisture.",
+    "status": "Active"
+  },
+  {
+    "id": "p-8",
+    "name": "Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.24 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.24 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.00 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator/WhatsApp Image 2026-07-09 at 11.34.23 AM (1).jpeg",
+      "/assets/products_staging/OTHER/Tata 2BYZF-6 No-Till Planter with Fertilizer Applicator/FertilizerApplicator-DRJGsdIk.jpeg"
+    ],
+    "specs": [
+      "6-Row Seeding Assembly",
+      "Heavy-Duty No-Till Disc Coulters",
+      "Large Capacity Seed/Fertilizer Tanks",
+      "Precision Metering Units"
+    ],
+    "task": "High-capacity direct seeding and fertilizer application across larger acreage fields to preserve soil moisture.",
+    "description": "This 6-row configuration maximizes planting efficiency for larger farming operations. It shares the same no-till design as the 4-row model, but features larger seed and fertilizer capacities to minimize refilling stops, allowing farmers to cover fields rapidly while preventing soil erosion.",
+    "status": "Active"
+  },
+  {
+    "id": "p-9",
+    "name": "Tata 6N2018X-G Rice Mill",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Tata 6N2018X-G Rice Mill/WhatsApp Image 2026-07-09 at 11.33.52 AM.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Tata 6N2018X-G Rice Mill/WhatsApp Image 2026-07-09 at 11.33.52 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 6N2018X-G Rice Mill/WhatsApp Image 2026-07-09 at 11.34.28 AM.jpeg",
+      "/assets/products_staging/OTHER/Tata 6N2018X-G Rice Mill/WhatsApp Image 2026-07-09 at 11.34.29 AM.jpeg"
+    ],
+    "specs": [
+      "Integrated De-husking System",
+      "Multistage Rice Polishing System",
+      "High-Output Electric Motor",
+      "Compact Footprint"
+    ],
+    "task": "Processing harvested field paddy into fully de-husked, polished, and market-ready white rice.",
+    "description": "The Tata 6N2018X-G is an efficient, all-in-one rice milling machine built for decentralized agricultural processing. It gently separates the tough outer husk from raw paddy grains before running them through an integrated polishing system, producing clean, high-grade white rice with a very low percentage of broken grains.",
+    "status": "Active"
+  },
+  {
+    "id": "p-10",
+    "name": "Tata Boom Sprayer",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Tata Boom Sprayer/TataBoomSprayer-DdUxDens.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Tata Boom Sprayer/TataBoomSprayer-DdUxDens.jpeg"
+    ],
+    "specs": [
+      "Tractor-Mounted Frame",
+      "Wide-Span Folding Booms",
+      "Adjustable Spray Nozzles",
+      "Chemical-Resistant Poly Tank"
+    ],
+    "task": "Wide-coverage, precise application of liquid pesticides, liquid fertilizers, and herbicides across large crop fields.",
+    "description": "The Tata Boom Sprayer provides uniform chemical coverage across a wide path, drastically reducing field time. It features adjustable nozzles to minimize chemical drift, ensuring targeted and efficient crop protection. Its durable boom arms fold compactly for safe transport between fields.",
+    "status": "Active"
+  },
+  {
+    "id": "p-11",
+    "name": "Tata Rice Transplanter",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/OTHER/Tata Rice Transplanter/RiceTransplanter-nXZtJxAL.jpeg",
+    "images": [
+      "/assets/products_staging/OTHER/Tata Rice Transplanter/RiceTransplanter-nXZtJxAL.jpeg"
+    ],
+    "specs": [
+      "Mechanized Row Planting Fingers",
+      "Uniform Seedling Spacing",
+      "Low-Compaction Paddy Wheels",
+      "High-Speed Float Board"
+    ],
+    "task": "Mechanized, high-speed transplanting of young rice seedlings into flooded paddy fields.",
+    "description": "This specialized machine replaces intensive manual labor by automatically planting young rice seedlings into wet paddies. It places seedlings at precise, uniform depths and intervals, ensuring optimal crop spacing that maximizes field yields while significantly lowering manual labor costs.",
+    "status": "Active"
+  },
+  {
+    "id": "p-12",
+    "name": "Lovol Harvester RG108 (Standard Combine)",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.18 AM.jpeg",
+    "images": [
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.18 AM.jpeg",
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.14 AM.jpeg",
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.14 AM (1).jpeg",
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.11 AM.jpeg",
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.17 AM.jpeg",
+      "/assets/products_staging/combine harvestor/LOVOL-RG108+/WhatsApp Image 2026-07-09 at 11.33.13 AM.jpeg"
+    ],
+    "specs": [
+      "Reliable Mechanical Drive",
+      "High-Volume Grain Tank",
+      "Optimized Cutting Width",
+      "Tangential Flow Threshing Drum"
+    ],
+    "task": "Continuous harvesting of diverse grain crops including rice, wheat, and barley under varied climate conditions.",
+    "description": "The Lovol RG108 is a robust combine harvester favored for its straightforward, reliable mechanical operation and excellent crop throughput. Its threshing mechanics cleanly separate grains from stalks, minimizing crop damage. The durable chassis and broad tires minimize soil compaction while keeping harvest operations smooth and highly efficient.",
+    "status": "Active"
+  },
+  {
+    "id": "p-13",
+    "name": "Zoomlion Crawler Type Harvester ZL105",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/combine harvestor/ZOOMLION/WhatsApp Image 2026-07-09 at 11.33.19 AM.jpeg",
+    "images": [
+      "/assets/products_staging/combine harvestor/ZOOMLION/WhatsApp Image 2026-07-09 at 11.33.19 AM.jpeg",
+      "/assets/products_staging/combine harvestor/ZOOMLION/WhatsApp Image 2026-07-09 at 11.33.18 AM (1).jpeg",
+      "/assets/products_staging/combine harvestor/ZOOMLION/WhatsApp Image 2026-07-09 at 11.33.22 AM.jpeg",
+      "/assets/products_staging/combine harvestor/ZOOMLION/WhatsApp Image 2026-07-09 at 11.33.49 AM.jpeg"
+    ],
+    "specs": [
+      "High-Traction Crawler Tracks",
+      "High Ground Clearance",
+      "High-Capacity Grain Tank",
+      "Heavy-Duty Rubber Tracks",
+      "Turbocharged Engine"
+    ],
+    "task": "Harvesting grain crops in waterlogged, muddy, or highly uneven and challenging wetland fields.",
+    "description": "The Zoomlion ZL105 is built with heavy-duty crawler tracks specifically to operate where wheeled harvesters fail. It floats effortlessly over muddy soils and paddy environments, delivering exceptional stability and high traction. Its high-capacity harvesting drum processes dense wet crops cleanly, making it indispensable for intensive rice farming regions.",
+    "status": "Active"
+  },
+  {
+    "id": "p-14",
+    "name": "Alvan Blanch Disc Harrow",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Alvan Blanch Disc Harrow/WhatsApp Image 2026-07-09 at 11.33.49 AM (1).jpeg",
+    "images": [
+      "/assets/products_staging/implements/Alvan Blanch Disc Harrow/WhatsApp Image 2026-07-09 at 11.33.49 AM (1).jpeg",
+      "/assets/products_staging/implements/Alvan Blanch Disc Harrow/OffsetDiscPlough-DO6luG0F.jpeg",
+      "/assets/products_staging/implements/Alvan Blanch Disc Harrow/WhatsApp Image 2026-07-09 at 11.34.41 AM.jpeg"
+    ],
+    "specs": [
+      "Premium Alvan Blanch Steel Structure",
+      "Multiple Heavy Discs",
+      "Adjustable Working Angle",
+      "Sealed Heavy-Duty Bearings"
+    ],
+    "task": "High-quality secondary tillage, clod breaking, seedbed leveling, and active weed eradication.",
+    "description": "Manufactured by Alvan Blanch, this disc harrow is an exceptional tool for secondary cultivation. Following a primary plow, it pulverizes large dirt clods into a fine, flat tilth. It is highly adjustable to ensure full surface coverage, making it ideal for final seedbed preparation.",
+    "status": "Active"
+  },
+  {
+    "id": "p-15",
+    "name": "Disc Ridger",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Disc Ridger/WhatsApp Image 2026-07-09 at 11.34.41 AM (2).jpeg",
+    "images": [
+      "/assets/products_staging/implements/Disc Ridger/WhatsApp Image 2026-07-09 at 11.34.41 AM (2).jpeg",
+      "/assets/products_staging/implements/Disc Ridger/WhatsApp Image 2026-07-09 at 11.34.41 AM (1).jpeg",
+      "/assets/products_staging/implements/Disc Ridger/WhatsApp Image 2026-07-09 at 11.34.12 AM.jpeg",
+      "/assets/products_staging/implements/Disc Ridger/WhatsApp Image 2026-07-09 at 11.34.07 AM.jpeg"
+    ],
+    "specs": [
+      "Adjustable Gang Angle",
+      "Durable Steel Discs",
+      "Heavy-Duty Frame",
+      "Variable Ridge Width Settings"
+    ],
+    "task": "Creating uniform ridges and furrows for row crops, irrigation planning, and localized soil water management.",
+    "description": "The Disc Ridger utilizes heavy rotating discs to gather loose soil into perfectly shaped ridges. It is highly adjustable, allowing operators to match row spacing requirements for crops such as potatoes, maize, and vegetables, while creating neat channels that optimize field drainage.",
+    "status": "Active"
+  },
+  {
+    "id": "p-16",
+    "name": "Mould Board Plough",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Mould Board Plough/WhatsApp Image 2026-07-09 at 11.34.40 AM.jpeg",
+    "images": [
+      "/assets/products_staging/implements/Mould Board Plough/WhatsApp Image 2026-07-09 at 11.34.40 AM.jpeg",
+      "/assets/products_staging/implements/Mould Board Plough/WhatsApp Image 2026-07-09 at 11.34.40 AM (1).jpeg",
+      "/assets/products_staging/implements/Mould Board Plough/MouldBoardPlough-roKwaKOA.jpeg",
+      "/assets/products_staging/implements/Mould Board Plough/WhatsApp Image 2026-07-09 at 11.33.59 AM.jpeg"
+    ],
+    "specs": [
+      "Classic Mould Board Share Design",
+      "High-Clearance Frame",
+      "Deep Tillage Shares",
+      "Reversible or Fixed Configurations"
+    ],
+    "task": "Traditional deep tillage, complete soil inversion, burial of organic crop residue, and weed seed suppression.",
+    "description": "The Mould Board Plough is the definitive tool for deep soil preparation. By cutting, lifting, and completely turning over the soil profile, it buries surface trash and weed seeds deep underground. This process enhances aeration, improves water infiltration, and establishes a clean, fertile seedbed.",
+    "status": "Active"
+  },
+  {
+    "id": "p-17",
+    "name": "Mould Board Ridger",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Mould Board Ridger/MouldBoardRidger-CZahw9XL.jpeg",
+    "images": [
+      "/assets/products_staging/implements/Mould Board Ridger/MouldBoardRidger-CZahw9XL.jpeg"
+    ],
+    "specs": [
+      "Dual Mould Board Wings",
+      "Deep Penetration Point",
+      "Adjustable Wing Span",
+      "High-Strength Steel Frame"
+    ],
+    "task": "Forming deep, well-defined raised beds and clean furrows for crops requiring strict root drainage profiles.",
+    "description": "The Mould Board Ridger uses symmetric wings to plow through soil, pushing equal amounts to both sides to form raised beds. It provides deep soil penetration, ensuring that the root zone of the crop remains loosely packed and highly aerated, which is ideal for root crop health.",
+    "status": "Active"
+  },
+  {
+    "id": "p-18",
+    "name": "Offset Disc Plough",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Offset Disc Plough/OffsetDiscPlough-DO6luG0F.jpeg",
+    "images": [
+      "/assets/products_staging/implements/Offset Disc Plough/OffsetDiscPlough-DO6luG0F.jpeg"
+    ],
+    "specs": [
+      "Offset Frame Design",
+      "High-Carbon Steel Discs",
+      "Adjustable Cutting Depth",
+      "Heavy-Duty Scrapers"
+    ],
+    "task": "Primary tillage in hard, dry, and stony soils, breaking up hardpan layers and chopping weed root systems.",
+    "description": "The Offset Disc Plough is designed to aggressively penetrate tough, uncultivated soils where traditional shares might break. The heavy, sharp discs spin freely to slash through crop residue and blend it into the topsoil. It features highly adjustable angles to accommodate changing ground hardness levels.",
+    "status": "Active"
+  },
+  {
+    "id": "p-19",
+    "name": "Shrubmaster Rotary Slasher",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.34.22 AM.jpeg",
+    "images": [
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.34.22 AM.jpeg",
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.34.20 AM.jpeg",
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.33.54 AM.jpeg",
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.34.14 AM.jpeg",
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/ShrubmasterRotarySlasher-bgnnic4k.jpeg",
+      "/assets/products_staging/implements/Shrubmaster Rotary Slasher/WhatsApp Image 2026-07-09 at 11.34.15 AM.jpeg"
+    ],
+    "specs": [
+      "Heavy-Duty Rotary Cutting Blades",
+      "Reinforced Steel Deck",
+      "Adjustable Skid Shoes",
+      "Friction Clutch Protection"
+    ],
+    "task": "Heavy-duty clearing of tough field bushes, tall shrubs, overgrown vegetation, and pasture maintenance.",
+    "description": "The Shrubmaster Rotary Slasher is engineered to clear wild, untamed fields and scrublands. Driven by the tractor's PTO, its heavy-duty blades rotate at high speeds to shred through thick brushwood and small saplings. It features built-in slip-clutch protection to safeguard the tractor's internal drive from sudden subterranean impacts.",
+    "status": "Active"
+  },
+  {
+    "id": "p-20",
+    "name": "Tipping Trailer",
+    "category": "Farm Implements",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/implements/Tipping Trailer/TippingTrailer-C2RhSgR1.jpeg",
+    "images": [
+      "/assets/products_staging/implements/Tipping Trailer/TippingTrailer-C2RhSgR1.jpeg"
+    ],
+    "specs": [
+      "Heavy-Duty Steel Construction",
+      "Hydraulic Tipping Mechanism",
+      "Various Payload Capacities",
+      "Multi-Leaf Spring Suspension"
+    ],
+    "task": "Highly efficient transport and automated unloading of harvested crops, fertilizer bags, and loose farm materials.",
+    "description": "This heavy-duty tipping trailer is built to handle the rigorous hauling needs of a busy farm. Operated directly by the tractor\u2019s hydraulic system, its smooth tipping mechanism allows for rapid, effortless unloading of bulk materials. The reinforced steel box structure ensures long-term resistance to denting and heavy impacts.",
+    "status": "Active"
+  },
+  {
+    "id": "p-21",
+    "name": "Lovol H754 H-Series 4WD Utility Tractor  Specs: 75 HP Engine, Xinchai 4-Cylinder Water-Cooled Diesel Engine, 12 Forward + 12 Reverse Gears with Mechanical Synchronizer Shuttle Shift, Heavy-Duty 4WD, Category II Three-Point Hitch with dual auxiliary cylinders, and Independent Dual-Speed PTO (540/1000 RPM).  Task: Highly efficient dry and paddy field operations, deep plowing, rotary tillage, farm hauling, and heavy-duty front/rear implement attachments.  Description: The Lovol H754 H-Series is an exceptionally engineered, multifunctional utility tractor independently developed to deliver unmatched power and adaptability for small to medium-sized farms. Powered by a robust Xinchai 4-cylinder engine, it satisfies modern emission regulations while providing an impressive torque reserve coefficient of over 30% and a heavy traction force reaching up to 17 KN. Built to survive challenging environments, it features a specialized shared-oil chassis integrated with a chassis oil radiator that continuously optimizes thermal control and overall operational efficiency during deep tillage or long hauling tasks.",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.23 AM (1).jpeg",
+    "images": [
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.23 AM (1).jpeg",
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.34 AM.jpeg",
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.34 AM (1).jpeg",
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.27 AM.jpeg",
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.29 AM.jpeg",
+      "/assets/products_staging/tractor/LOVOL/WhatsApp Image 2026-07-09 at 11.33.28 AM.jpeg"
+    ],
+    "specs": [
+      "75 HP Engine",
+      "Xinchai 4-Cylinder Water-Cooled Diesel Engine",
+      "12 Forward + 12 Reverse Gears with Mechanical Synchronizer Shuttle Shift",
+      "Heavy-Duty 4WD",
+      "Category II Three-Point Hitch with dual auxiliary cylinders",
+      "and Independent Dual-Speed PTO (540/1000 RPM).  Task: Highly efficient dry and paddy field operations",
+      "deep plowing",
+      "rotary tillage",
+      "farm hauling",
+      "and heavy-duty front/rear implement attachments.  Description: The Lovol H754 H-Series is an exceptionally engineered",
+      "multifunctional utility tractor independently developed to deliver unmatched power and adaptability for small to medium-sized farms. Powered by a robust Xinchai 4-cylinder engine",
+      "it satisfies modern emission regulations while providing an impressive torque reserve coefficient of over 30% and a heavy traction force reaching up to 17 KN. Built to survive challenging environments",
+      "it features a specialized shared-oil chassis integrated with a chassis oil radiator that continuously optimizes thermal control and overall operational efficiency during deep tillage or long hauling tasks"
+    ],
+    "task": "Highly efficient dry and paddy field operations, deep plowing, rotary tillage, farm hauling, and heavy-duty front/rear implement attachments.  Description: The Lovol H754 H-Series is an exceptionally engineered, multifunctional utility tractor independently developed to deliver unmatched power and adaptability for small to medium-sized farms. Powered by a robust Xinchai 4-cylinder engine, it satisfies modern emission regulations while providing an impressive torque reserve coefficient of over 30% and a heavy traction force reaching up to 17 KN. Built to survive challenging environments, it features a specialized shared-oil chassis integrated with a chassis oil radiator that continuously optimizes thermal control and overall operational efficiency during deep tillage or long hauling tasks.",
+    "description": "The Lovol H754 H-Series is an exceptionally engineered, multifunctional utility tractor independently developed to deliver unmatched power and adaptability for small to medium-sized farms. Powered by a robust Xinchai 4-cylinder engine, it satisfies modern emission regulations while providing an impressive torque reserve coefficient of over 30% and a heavy traction force reaching up to 17 KN. Built to survive challenging environments, it features a specialized shared-oil chassis integrated with a chassis oil radiator that continuously optimizes thermal control and overall operational efficiency during deep tillage or long hauling tasks.",
+    "status": "Active"
+  },
+  {
+    "id": "p-22",
+    "name": "Massey Ferguson MF-375 Utility TractorSpecs: 75 HP Engine, 4.41L 4-Cylinder Perkins Diesel Engine, Sliding Spur Transmission (8 Forward / 2 Reverse Gears), 2,145 kg Maximum Lifting Capacity, Hydrostatic Power Steering.  Task: High-efficiency primary cultivation, heavy-duty plowing, medium-to-large scale crop hauling, and reliable multi-implement farm management.  Description: The Massey Ferguson MF-375 is a legendary, durable, and highly versatile utility tractor engineered specifically to tackle demanding agricultural tasks under challenging field conditions. Powered by a robust and fuel-efficient 4-cylinder Perkins engine, it delivers high pulling power and maximum torque at low RPMs, minimizing engine wear while maximizing field productivity. Its aerodynamic body profile is paired with an upgraded oil cooler system to ensure steady engine performance without overheating during prolonged operations in hot climates.  The tractor's heavy-duty transmission and independent 540 RPM PTO allow it to seamlessly operate deep-tillage implements, large planters, and harvesting tools. For operator safety and comfort, it features an oil-immersed multi-disc braking system for responsive stopping power, responsive hydrostatic steering to lower steering effort, and a spring-suspension seat designed to absorb vibrations during long working days in the field.",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/MF/WhatsApp Image 2026-07-09 at 11.33.44 AM.jpeg",
+    "images": [
+      "/assets/products_staging/tractor/MF/WhatsApp Image 2026-07-09 at 11.33.44 AM.jpeg",
+      "/assets/products_staging/tractor/MF/WhatsApp Image 2026-07-09 at 11.33.35 AM (1).jpeg",
+      "/assets/products_staging/tractor/MF/WhatsApp Image 2026-07-09 at 11.33.35 AM.jpeg",
+      "/assets/products_staging/tractor/MF/WhatsApp Image 2026-07-09 at 11.33.43 AM.jpeg"
+    ],
+    "specs": [
+      "75 HP Engine",
+      "4.41L 4-Cylinder Perkins Diesel Engine",
+      "Sliding Spur Transmission (8 Forward / 2 Reverse Gears)",
+      "2",
+      "145 kg Maximum Lifting Capacity",
+      "Hydrostatic Power Steering.  Task: High-efficiency primary cultivation",
+      "heavy-duty plowing",
+      "medium-to-large scale crop hauling",
+      "and reliable multi-implement farm management.  Description: The Massey Ferguson MF-375 is a legendary",
+      "durable",
+      "and highly versatile utility tractor engineered specifically to tackle demanding agricultural tasks under challenging field conditions. Powered by a robust and fuel-efficient 4-cylinder Perkins engine",
+      "it delivers high pulling power and maximum torque at low RPMs",
+      "minimizing engine wear while maximizing field productivity. Its aerodynamic body profile is paired with an upgraded oil cooler system to ensure steady engine performance without overheating during prolonged operations in hot climates.  The tractor's heavy-duty transmission and independent 540 RPM PTO allow it to seamlessly operate deep-tillage implements",
+      "large planters",
+      "and harvesting tools. For operator safety and comfort",
+      "it features an oil-immersed multi-disc braking system for responsive stopping power",
+      "responsive hydrostatic steering to lower steering effort",
+      "and a spring-suspension seat designed to absorb vibrations during long working days in the field"
+    ],
+    "task": "High-efficiency primary cultivation, heavy-duty plowing, medium-to-large scale crop hauling, and reliable multi-implement farm management.  Description: The Massey Ferguson MF-375 is a legendary, durable, and highly versatile utility tractor engineered specifically to tackle demanding agricultural tasks under challenging field conditions. Powered by a robust and fuel-efficient 4-cylinder Perkins engine, it delivers high pulling power and maximum torque at low RPMs, minimizing engine wear while maximizing field productivity. Its aerodynamic body profile is paired with an upgraded oil cooler system to ensure steady engine performance without overheating during prolonged operations in hot climates.  The tractor's heavy-duty transmission and independent 540 RPM PTO allow it to seamlessly operate deep-tillage implements, large planters, and harvesting tools. For operator safety and comfort, it features an oil-immersed multi-disc braking system for responsive stopping power, responsive hydrostatic steering to lower steering effort, and a spring-suspension seat designed to absorb vibrations during long working days in the field.",
+    "description": "The Massey Ferguson MF-375 is a legendary, durable, and highly versatile utility tractor engineered specifically to tackle demanding agricultural tasks under challenging field conditions. Powered by a robust and fuel-efficient 4-cylinder Perkins engine, it delivers high pulling power and maximum torque at low RPMs, minimizing engine wear while maximizing field productivity. Its aerodynamic body profile is paired with an upgraded oil cooler system to ensure steady engine performance without overheating during prolonged operations in hot climates.  The tractor's heavy-duty transmission and independent 540 RPM PTO allow it to seamlessly operate deep-tillage implements, large planters, and harvesting tools. For operator safety and comfort, it features an oil-immersed multi-disc braking system for responsive stopping power, responsive hydrostatic steering to lower steering effort, and a spring-suspension seat designed to absorb vibrations during long working days in the field.",
+    "status": "Active"
+  },
+  {
+    "id": "p-23",
+    "name": "\ufeffName: Zoomlion RK Series 904 - 4WD Heavy-Duty Tractor",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/Zoomlion RC SERIES 1104 - 4WD /WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+    "images": [
+      "/assets/products_staging/tractor/Zoomlion RC SERIES 1104 - 4WD /WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RC SERIES 1104 - 4WD /WhatsApp Image 2026-07-09 at 11.33.46 AM (1).jpeg",
+      "/assets/products_staging/tractor/Zoomlion RC SERIES 1104 - 4WD /WhatsApp Image 2026-07-09 at 11.32.56 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RC SERIES 1104 - 4WD /WhatsApp Image 2026-07-09 at 11.33.01 AM.jpeg"
+    ],
+    "specs": [
+      "90 HP Engine",
+      "4WD",
+      "16 Forward Gears",
+      "High-Pressure Common Rail Diesel Engine",
+      "High Lifting Capacity Category II Hitch"
+    ],
+    "task": "Intensive large-scale farming, deep tillage, heavy secondary cultivation, and continuous heavy machinery pulling.",
+    "description": "The Zoomlion RK Series 904 is a heavy-duty agricultural tractor designed to dominate demanding farm tasks. Featuring 16 forward speeds and an advanced 90 HP engine, it delivers high torque to pull wider implements and deep-subsoilers effortlessly. The advanced cabin ergonomics and technological control loops allow operators to remain productive during extended seasonal windows.",
+    "status": "Active"
+  },
+  {
+    "id": "p-24",
+    "name": "Zoomlion RK Series 504 - 4WD Compact Tractor",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/Zoomlion RK SERIES 504K - 4WD/WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+    "images": [
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 504K - 4WD/WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 504K - 4WD/WhatsApp Image 2026-07-09 at 11.33.46 AM (1).jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 504K - 4WD/WhatsApp Image 2026-07-09 at 11.32.58 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 504K - 4WD/WhatsApp Image 2026-07-09 at 11.33.01 AM.jpeg"
+    ],
+    "specs": [
+      "50 HP Engine",
+      "4WD",
+      "Compact Frame Design",
+      "Shuttle Shift Transmission",
+      "Multi-Way Hydraulic Valve System"
+    ],
+    "task": "Perfect for small-to-medium farms, orchards, vineyard management, and tight-space maneuverability.",
+    "description": "The Zoomlion RK Series 504 delivers efficient performance in a compact, highly maneuverable 4WD frame. It is specially built to navigate narrow rows and smaller plots without sacrificing the hydraulic and pulling power required for plowing and planting. Its high fuel efficiency and straightforward operation make it a staple tool for diverse small-scale farmers.",
+    "status": "Active"
+  },
+  {
+    "id": "p-25",
+    "name": "Zoomlion RK Series 754 - 4WD Tractor",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.02 AM (1).jpeg",
+    "images": [
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.02 AM (1).jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.23 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.46 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.45 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 754 - 4WD/WhatsApp Image 2026-07-09 at 11.33.02 AM.jpeg"
+    ],
+    "specs": [
+      "75 HP Engine",
+      "4WD",
+      "12 Forward Gears",
+      "Dual-Stage Clutch",
+      "Ergonomic Operator Platform"
+    ],
+    "task": "Powerful general agriculture, row-crop cultivation, medium-scale seeding, and intensive field spraying.",
+    "description": "The Zoomlion RK Series 754 provides outstanding versatility and power for modern farming conditions. Featuring a robust 12-speed transmission and dual-stage clutch mechanics, it gives the operator precise control over ground speeds and PTO speeds. Its aggressive 4WD axle enables steady operation through heavy clay and undulating topographies.",
+    "status": "Active"
+  },
+  {
+    "id": "p-26",
+    "name": "\ufeffName: Zoomlion RK Series 904 - 4WD Heavy-Duty Tractor",
+    "category": "Tractors",
+    "price": "Price on Request",
+    "image": "/assets/products_staging/tractor/Zoomlion RK SERIES 904 - 4WD/WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+    "images": [
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 904 - 4WD/WhatsApp Image 2026-07-09 at 11.32.55 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 904 - 4WD/WhatsApp Image 2026-07-09 at 11.33.46 AM (1).jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 904 - 4WD/WhatsApp Image 2026-07-09 at 11.33.01 AM.jpeg",
+      "/assets/products_staging/tractor/Zoomlion RK SERIES 904 - 4WD/WhatsApp Image 2026-07-09 at 11.33.22 AM (1).jpeg"
+    ],
+    "specs": [
+      "90 HP Engine",
+      "4WD",
+      "16 Forward Gears",
+      "High-Pressure Common Rail Diesel Engine",
+      "High Lifting Capacity Category II Hitch"
+    ],
+    "task": "Intensive large-scale farming, deep tillage, heavy secondary cultivation, and continuous heavy machinery pulling.",
+    "description": "The Zoomlion RK Series 904 is a heavy-duty agricultural tractor designed to dominate demanding farm tasks. Featuring 16 forward speeds and an advanced 90 HP engine, it delivers high torque to pull wider implements and deep-subsoilers effortlessly. The advanced cabin ergonomics and technological control loops allow operators to remain productive during extended seasonal windows.",
+    "status": "Active"
+  }
+]
