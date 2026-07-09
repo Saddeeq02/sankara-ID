@@ -15,7 +15,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   List<dynamic> _complaints = [];
   bool _isLoading = true;
   final _formKey = GlobalKey<FormState>();
-  
+
   String _selectedType = 'absence';
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
@@ -40,7 +40,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
     if (staffId == null) return;
 
     try {
-      final res = await http.get(Uri.parse("${getBaseUrl()}/complaints/staff/$staffId"));
+      final res = await http
+          .get(Uri.parse("${getBaseUrl()}/complaints/staff/$staffId"));
       if (res.statusCode == 200) {
         setState(() {
           _complaints = jsonDecode(res.body);
@@ -83,21 +84,26 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
         _descController.clear();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Complaint logged successfully!'), backgroundColor: Colors.green),
+            const SnackBar(
+                content: Text('Complaint logged successfully!'),
+                backgroundColor: Colors.green),
           );
         }
         _fetchComplaints();
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to submit complaint.'), backgroundColor: Colors.red),
+            const SnackBar(
+                content: Text('Failed to submit complaint.'),
+                backgroundColor: Colors.red),
           );
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Network error: $e'), backgroundColor: Colors.red),
+          SnackBar(
+              content: Text('Network error: $e'), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -136,7 +142,10 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                       children: [
                         const Text(
                           'Log Excuse / Complaint',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         IconButton(
                           icon: const Icon(Icons.close, color: Colors.white70),
@@ -152,13 +161,17 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Type',
                         labelStyle: TextStyle(color: Colors.white70),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white24)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blueAccent)),
                       ),
                       items: const [
-                        DropdownMenuItem(value: 'absence', child: Text('Absence')),
+                        DropdownMenuItem(
+                            value: 'absence', child: Text('Absence')),
                         DropdownMenuItem(value: 'delay', child: Text('Delay')),
-                        DropdownMenuItem(value: 'other', child: Text('Other Complaint')),
+                        DropdownMenuItem(
+                            value: 'other', child: Text('Other Complaint')),
                       ],
                       onChanged: (val) {
                         if (val != null) {
@@ -175,10 +188,14 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Subject / Title',
                         labelStyle: TextStyle(color: Colors.white70),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white24)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blueAccent)),
                       ),
-                      validator: (val) => val == null || val.trim().isEmpty ? 'Please enter a subject' : null,
+                      validator: (val) => val == null || val.trim().isEmpty
+                          ? 'Please enter a subject'
+                          : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -188,10 +205,14 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Detailed Explanation',
                         labelStyle: TextStyle(color: Colors.white70),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white24)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blueAccent)),
                       ),
-                      validator: (val) => val == null || val.trim().isEmpty ? 'Please enter details' : null,
+                      validator: (val) => val == null || val.trim().isEmpty
+                          ? 'Please enter details'
+                          : null,
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
@@ -199,7 +220,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                         backgroundColor: Colors.blueAccent,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: _isSubmitting
                           ? null
@@ -209,7 +231,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                             },
                       child: _isSubmitting
                           ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text('Submit Excuse', style: TextStyle(fontWeight: FontWeight.bold)),
+                          : const Text('Submit Excuse',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -263,12 +286,14 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        title: const Text('My Excuses / Complaints', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        title: const Text('My Excuses / Complaints',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: const Color(0xFF0D1A26),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.blueAccent))
+          ? const Center(
+              child: CircularProgressIndicator(color: Colors.blueAccent))
           : RefreshIndicator(
               onRefresh: _fetchComplaints,
               child: _complaints.isEmpty
@@ -291,12 +316,16 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                         final response = c['md_response'];
                         final pts = c['points_awarded'] ?? 0;
                         final dateStr = c['created_at'] != null
-                            ? DateTime.parse(c['created_at']).toLocal().toString().substring(0, 16)
+                            ? DateTime.parse(c['created_at'])
+                                .toLocal()
+                                .toString()
+                                .substring(0, 16)
                             : '';
 
                         return Card(
                           color: const Color(0xFF1E1E1E),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           margin: const EdgeInsets.only(bottom: 16),
                           child: Padding(
                             padding: const EdgeInsets.all(16),
@@ -305,17 +334,23 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(_getTypeIcon(type), color: Colors.blueAccent, size: 24),
+                                    Icon(_getTypeIcon(type),
+                                        color: Colors.blueAccent, size: 24),
                                     const SizedBox(width: 8),
                                     Text(
                                       type.toUpperCase(),
-                                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent, fontSize: 12),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blueAccent,
+                                          fontSize: 12),
                                     ),
                                     const Spacer(),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: _getStatusColor(status).withValues(alpha: 0.2),
+                                        color: _getStatusColor(status)
+                                            .withValues(alpha: 0.2),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
@@ -332,55 +367,74 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                                 const SizedBox(height: 12),
                                 Text(
                                   title,
-                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
                                 const SizedBox(height: 6),
                                 Text(
                                   desc,
-                                  style: const TextStyle(color: Colors.white70, fontSize: 14),
+                                  style: const TextStyle(
+                                      color: Colors.white70, fontSize: 14),
                                 ),
                                 const SizedBox(height: 12),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       dateStr,
-                                      style: const TextStyle(color: Colors.white30, fontSize: 12),
+                                      style: const TextStyle(
+                                          color: Colors.white30, fontSize: 12),
                                     ),
                                     if (pts > 0)
                                       Row(
                                         children: [
-                                          const Icon(Icons.star, color: Colors.amber, size: 16),
+                                          const Icon(Icons.star,
+                                              color: Colors.amber, size: 16),
                                           const SizedBox(width: 4),
                                           Text(
                                             '+$pts Pts',
-                                            style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 14),
+                                            style: const TextStyle(
+                                                color: Colors.amber,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
                                           ),
                                         ],
                                       ),
                                   ],
                                 ),
-                                if (response != null && response.toString().trim().isNotEmpty) ...[
-                                  const Divider(color: Colors.white10, height: 24),
+                                if (response != null &&
+                                    response.toString().trim().isNotEmpty) ...[
+                                  const Divider(
+                                      color: Colors.white10, height: 24),
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.03),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.03),
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(color: Colors.white10),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           'MD Response:',
-                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.amber, fontSize: 12),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.amber,
+                                              fontSize: 12),
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
                                           response,
-                                          style: const TextStyle(color: Colors.white70, fontSize: 13),
+                                          style: const TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 13),
                                         ),
                                       ],
                                     ),
