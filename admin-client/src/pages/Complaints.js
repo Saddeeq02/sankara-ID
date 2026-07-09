@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { MessageSquare, CheckCircle, XCircle, Award, Calendar, User, Eye } from 'lucide-react';
+import { MessageSquare, Calendar, User, Eye } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
-import { Megaphone, Send, Calendar, Clock } from 'lucide-react';
+import { Megaphone, Send, Calendar } from 'lucide-react';
 
 const html = htm.bind(React.createElement);
 
