@@ -114,7 +114,7 @@ def main():
     id_counter = 1
     
     categories_map = {
-        'OTHER': 'Farm Implements',
+        'OTHER': 'Specialized Equipment',
         'combine harvestor': 'Farm Implements',
         'implements': 'Farm Implements',
         'spare parts': 'Spare Parts',
