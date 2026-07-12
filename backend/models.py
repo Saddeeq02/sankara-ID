@@ -5,7 +5,12 @@ from datetime import datetime
 import os
 
 # Default to local SQLite if DATABASE_URL is not set
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sankara_id.db")
+if not os.getenv("DATABASE_URL"):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(base_dir, "sankara_id.db")
+    SQLALCHEMY_DATABASE_URL = f"sqlite:///{db_path}"
+else:
+    SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 # If using PostgreSQL (like Supabase), we don't need check_same_thread
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
