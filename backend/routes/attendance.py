@@ -204,6 +204,8 @@ def get_staff_attendance(staff_id: int, skip: int = 0, limit: int = 100, db: Ses
             clock_in_time=att.clock_in_time,
             clock_out_time=att.clock_out_time,
             is_proxy=att.is_proxy,
+            latitude=att.latitude,
+            longitude=att.longitude,
             staff_name=staff_name
         ))
     return result
