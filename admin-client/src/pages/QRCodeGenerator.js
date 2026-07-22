@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import htm from 'htm';
 import { Printer, MapPin, ShieldCheck, QrCode } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -15,8 +16,8 @@ export default function QRCodeGenerator() {
   });
 
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qrData)}`;
-  const logoUrl = 'https://sankara-id.vercel.app/uploads/logo.png';
-  const tractorBg = 'https://sankara-id.vercel.app/tractor_bg.png';
+  const logoUrl = `${API_BASE_URL}/uploads/logo.png`;
+  const tractorBg = `${API_BASE_URL}/tractor_bg.png`;
 
   const handlePrint = () => {
     const printWindow = window.open('', '_blank');

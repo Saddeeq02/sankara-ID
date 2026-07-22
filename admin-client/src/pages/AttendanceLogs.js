@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { Search, ShieldAlert, CheckCircle, RefreshCw, Calendar, Users, ShieldCheck } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -13,7 +14,7 @@ export default function AttendanceLogs() {
   async function fetchLogs() {
     setIsLoading(true);
     try {
-      const res = await fetch('https://sankara-id.vercel.app/attendance/');
+      const res = await fetch(`${API_BASE_URL}/attendance/`);
       const data = await res.json();
       data.sort((a, b) => new Date(b.date) - new Date(a.date));
       setLogs(data);

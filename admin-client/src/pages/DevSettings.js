@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { MapPin, ShieldAlert } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -17,7 +18,7 @@ export default function DevSettings() {
   useEffect(() => {
     async function fetchSettings() {
       try {
-        const res = await fetch('https://sankara-id.vercel.app/settings/');
+        const res = await fetch(`${API_BASE_URL}/settings/`);
         if (res.ok) {
           const data = await res.json();
           setSettings(data);
@@ -35,7 +36,7 @@ export default function DevSettings() {
     e.preventDefault();
     setIsSaving(true);
     try {
-      const res = await fetch('https://sankara-id.vercel.app/settings/', {
+      const res = await fetch(`${API_BASE_URL}/settings/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(settings)

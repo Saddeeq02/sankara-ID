@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { MessageSquare, Calendar, User, Eye } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -16,7 +17,7 @@ export default function Complaints() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await fetch('https://sankara-id.vercel.app/complaints/');
+      const res = await fetch(`${API_BASE_URL}/complaints/`);
       if (res.ok) {
         const data = await res.json();
         setComplaints(data);
@@ -37,7 +38,7 @@ export default function Complaints() {
     if (!selectedComplaint) return;
 
     try {
-      const res = await fetch(`https://sankara-id.vercel.app/complaints/${selectedComplaint.id}/respond`, {
+      const res = await fetch(`${API_BASE_URL}/complaints/${selectedComplaint.id}/respond`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

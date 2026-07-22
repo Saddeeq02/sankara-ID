@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { Users, UserCheck, UserX, Activity, Sparkles, TrendingUp, Clock, CheckCircle, ShieldAlert, Trophy } from 'lucide-react';
+import { API_BASE_URL, getImageUrl } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -18,22 +19,22 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         // Fetch all staff
-        const staffRes = await fetch('https://sankara-id.vercel.app/staff/');
+        const staffRes = await fetch(`${API_BASE_URL}/staff/`);
         const staffData = await staffRes.json();
         
         // Fetch leaderboard for top performer
-        const leadRes = await fetch('https://sankara-id.vercel.app/staff/leaderboard?limit=1');
+        const leadRes = await fetch(`${API_BASE_URL}/staff/leaderboard?limit=1`);
         const leadData = await leadRes.json();
         if(leadData && leadData.length > 0) {
           setTopPerformer(leadData[0]);
         }
 
         // Fetch all attendance
-        const attendanceRes = await fetch('https://sankara-id.vercel.app/attendance/');
+        const attendanceRes = await fetch(`${API_BASE_URL}/attendance/`);
         const attendanceData = await attendanceRes.json();
         
         // Fetch all tasks
-        const tasksRes = await fetch('https://sankara-id.vercel.app/tasks/');
+        const tasksRes = await fetch(`${API_BASE_URL}/tasks/`);
         const tasksData = await tasksRes.json();
 
         // Calculate today's date string YYYY-MM-DD
@@ -144,15 +145,19 @@ export default function Dashboard() {
           </div>
           
           ${topPerformer && html`
-            <div style=${{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '1rem 1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style=${{ background: '#fbbf24', borderRadius: '50%', padding: '0.5rem' }}>
-                <${Trophy} size=${20} color="#78350f" />
-              </div>
+            <div style=${{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '0.75rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <img 
+                src=${getImageUrl(topPerformer.picture_path)} 
+                style=${{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #fbbf24' }} 
+                alt=${topPerformer.full_name} 
+              />
               <div>
-                <div style=${{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#c7d2fe' }}>Top Performer</div>
-                <div style=${{ fontWeight: 'bold', fontSize: '1.1rem' }}>${topPerformer.full_name}</div>
+                <div style=${{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#c7d2fe', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <${Trophy} size=${14} color="#fbbf24" /> Top Performer
+                </div>
+                <div style=${{ fontWeight: 'bold', fontSize: '1rem', color: 'white' }}>${topPerformer.full_name}</div>
               </div>
-              <div style=${{ marginLeft: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.25rem 0.75rem', borderRadius: '99px', fontSize: '0.9rem', fontWeight: 'bold' }}>
+              <div style=${{ marginLeft: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.25rem 0.75rem', borderRadius: '99px', fontSize: '0.85rem', fontWeight: 'bold', color: 'white' }}>
                 ${topPerformer.score} pts
               </div>
             </div>

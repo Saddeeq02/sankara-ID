@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { Trophy, CheckCircle, Clock, Plus, Target, Award, CheckSquare } from 'lucide-react';
+import { API_BASE_URL, getImageUrl } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -14,7 +15,7 @@ export default function Leaderboard() {
   async function fetchData() {
     try {
       // Get all staff
-      const staffRes = await fetch('https://sankara-id.vercel.app/staff/');
+      const staffRes = await fetch(`${API_BASE_URL}/staff/`);
       const staffData = await staffRes.json();
       setStaffList(staffData);
 
@@ -23,7 +24,7 @@ export default function Leaderboard() {
       setLeaderboard(sortedLeaderboard);
 
       // Get all tasks
-      const tasksRes = await fetch('https://sankara-id.vercel.app/tasks/');
+      const tasksRes = await fetch(`${API_BASE_URL}/tasks/`);
       const tasksData = await tasksRes.json();
       setTasks(tasksData);
 
@@ -43,7 +44,7 @@ export default function Leaderboard() {
   const handleAssignTask = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('https://sankara-id.vercel.app/tasks/', {
+      const res = await fetch(`${API_BASE_URL}/tasks/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -71,7 +72,7 @@ export default function Leaderboard() {
 
   const handleApproveTask = async (taskId) => {
     try {
-      const res = await fetch(`https://sankara-id.vercel.app/tasks/${taskId}/approve`, {
+      const res = await fetch(`${API_BASE_URL}/tasks/${taskId}/approve`, {
         method: 'PUT'
       });
       if (res.ok) {
@@ -90,11 +91,6 @@ export default function Leaderboard() {
   const getStaffName = (staffId) => {
     const s = staffList.find(x => x.id === staffId);
     return s ? s.full_name : `Staff #${staffId}`;
-  };
-
-  const getInitials = (name) => {
-    if (!name) return 'ST';
-    return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   };
 
   const getRankBadgeStyles = (index) => {
@@ -187,15 +183,15 @@ export default function Leaderboard() {
                   ${index + 1}
                 </div>
                 
-                <!-- Avatar with Initials -->
-                <div style=${{
-                  width: '36px', height: '36px', borderRadius: '10px',
-                  background: 'rgba(79, 70, 229, 0.08)', color: 'var(--primary)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 700, fontSize: '0.85rem'
-                }}>
-                  ${getInitials(staff.full_name)}
-                </div>
+                <!-- Avatar with Profile Picture -->
+                <img 
+                  src=${getImageUrl(staff.picture_path)}
+                  style=${{
+                    width: '36px', height: '36px', borderRadius: '10px',
+                    objectFit: 'cover', border: '1px solid var(--border-color)'
+                  }}
+                  alt=${staff.full_name}
+                />
                 
                 <!-- Staff Info -->
                 <div style=${{ flex: 1, minWidth: 0 }}>

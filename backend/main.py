@@ -20,8 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve uploaded profile pictures
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+import os
+
+# Serve uploaded profile pictures using absolute path
+uploads_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
+os.makedirs(uploads_dir, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 
 from routes import staff, attendance, tasks, settings, complaints, announcements
 
@@ -38,4 +42,8 @@ def read_root():
 
 @app.get("/tractor_bg.png")
 def get_tractor_bg():
-    return FileResponse("/home/fox/.gemini/antigravity/brain/a06d73b6-7044-4d08-b40b-de4994c92983/tractor_background_1782322788371.png")
+    bg_path = os.path.join(uploads_dir, "tractor_bg.png")
+    if not os.path.exists(bg_path):
+        bg_path = os.path.join(uploads_dir, "techco_bg.png")
+    return FileResponse(bg_path)
+

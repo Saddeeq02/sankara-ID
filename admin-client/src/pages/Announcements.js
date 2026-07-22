@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import { Megaphone, Send, Calendar } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const html = htm.bind(React.createElement);
 
@@ -13,7 +14,7 @@ export default function Announcements() {
 
   const fetchAnnouncements = async () => {
     try {
-      const res = await fetch('https://sankara-id.vercel.app/announcements/');
+      const res = await fetch(`${API_BASE_URL}/announcements/`);
       if (res.ok) {
         const data = await res.json();
         setAnnouncements(data);
@@ -35,7 +36,7 @@ export default function Announcements() {
     
     setIsPosting(true);
     try {
-      const res = await fetch('https://sankara-id.vercel.app/announcements/', {
+      const res = await fetch(`${API_BASE_URL}/announcements/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, content })
