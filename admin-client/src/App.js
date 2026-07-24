@@ -140,100 +140,103 @@ function App() {
       ></div>
       
       <aside className=${`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h2 style=${{ fontSize: '1.5rem', margin: 0 }}>Sankara Admin</h2>
-            <p style=${{ fontSize: '0.875rem', margin: '0.5rem 0 0 0' }}>Admin Portal</p>
+        <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.5rem', borderBottom: '1px solid rgba(226, 232, 240, 0.6)' }}>
+          <div style=${{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/logo.png" alt="Logo" style=${{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+            <div>
+              <h2 style=${{ fontSize: '1.25rem', margin: 0, fontWeight: '700', color: 'var(--primary)', lineHeight: '1.2' }}>Sankara Admin</h2>
+              <p style=${{ fontSize: '0.75rem', margin: 0, color: 'var(--text-secondary)' }}>Control & Operations</p>
+            </div>
           </div>
           <button 
             className="mobile-menu-btn" 
-            style=${{ border: 'none', background: 'transparent' }}
+            style=${{ border: 'none', background: 'transparent', cursor: 'pointer' }}
             onClick=${() => setSidebarOpen(false)}
           >
-            <${X} size=${24} />
+            <${X} size=${22} />
           </button>
         </div>
         
         <nav className="sidebar-nav">
           <button 
-            onClick=${() => setCurrentPage('dashboard')} 
+            onClick=${() => { setCurrentPage('dashboard'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'dashboard' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${LayoutDashboard} size=${20} /> Dashboard
+            <${LayoutDashboard} size=${19} /> Dashboard
           </button>
           <button 
-            onClick=${() => setCurrentPage('staff')} 
+            onClick=${() => { setCurrentPage('staff'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'staff' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${Users} size=${20} /> Staff Management
+            <${Users} size=${19} /> Staff Management
           </button>
           <button 
-            onClick=${() => setCurrentPage('attendance')} 
+            onClick=${() => { setCurrentPage('attendance'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'attendance' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${Calendar} size=${20} /> Attendance Logs
+            <${Calendar} size=${19} /> Attendance Logs
           </button>
           <button 
-            onClick=${() => setCurrentPage('qr')} 
+            onClick=${() => { setCurrentPage('qr'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'qr' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${QrCode} size=${20} /> QR Generator
+            <${QrCode} size=${19} /> QR Generator
           </button>
           <button 
-            onClick=${() => setCurrentPage('leaderboard')} 
+            onClick=${() => { setCurrentPage('leaderboard'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'leaderboard' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${Trophy} size=${20} /> Leaderboard
+            <${Trophy} size=${19} /> Leaderboard
           </button>
           <button 
-            onClick=${() => setCurrentPage('complaints')} 
+            onClick=${() => { setCurrentPage('complaints'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'complaints' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${MessageSquare} size=${20} /> Complaints
+            <${MessageSquare} size=${19} /> Complaints
           </button>
           <button 
-            onClick=${() => setCurrentPage('announcements')} 
+            onClick=${() => { setCurrentPage('announcements'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'announcements' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${Megaphone} size=${20} /> Announcements
+            <${Megaphone} size=${19} /> Announcements
           </button>
           
-          <div style=${{ margin: '1.5rem 0', borderTop: '1px solid var(--border-color)' }}></div>
+          <div style=${{ margin: '1rem 0', borderTop: '1px solid var(--glass-border)' }}></div>
           
           <button 
-            onClick=${() => setCurrentPage('settings')} 
+            onClick=${() => { setCurrentPage('settings'); setSidebarOpen(false); }} 
             className=${`nav-link ${currentPage === 'settings' ? 'active' : ''}`}
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <${Settings} size=${20} /> Dev Mode
+            <${Settings} size=${19} /> Dev Mode
           </button>
 
           <a 
-            href="https://sankara-etbr.vercel.app/admin/login?token=sankara_super_secret_token_123" 
+            href="https://sankaranigerialimited.com/admin" 
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link"
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', textDecoration: 'none', marginTop: '1rem' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary)', textDecoration: 'none' }}
           >
-            <${ExternalLink} size=${20} /> Manage Website
+            <${ExternalLink} size=${19} /> Manage Website
           </a>
           
           <button 
             onClick=${handleLogout} 
             className="nav-link"
-            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444', marginTop: 'auto' }}
+            style=${{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', color: '#ef4444', marginTop: 'auto' }}
           >
-            <${LogOut} size=${20} /> Logout
+            <${LogOut} size=${19} /> Logout
           </button>
-          <div style=${{ marginTop: '1.5rem', textAlign: 'center', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-            <p style=${{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: 0 }}>
+          <div style=${{ marginTop: '1rem', textAlign: 'center', borderTop: '1px solid var(--glass-border)', paddingTop: '0.75rem' }}>
+            <p style=${{ fontSize: '0.725rem', color: 'var(--text-secondary)', margin: 0 }}>
               Developed by<br />
               <a href="https://brainiacs.ng/" target="_blank" rel="noopener noreferrer" style=${{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '600' }}>Brainiacs Innovation</a>
             </p>
@@ -241,12 +244,13 @@ function App() {
         </nav>
       </aside>
       <main className="main-content">
-        <div style=${{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem' }}>
+        <div style=${{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
           <button 
             className="mobile-menu-btn" 
             onClick=${() => setSidebarOpen(true)}
+            aria-label="Toggle Menu"
           >
-            <${Menu} size=${24} />
+            <${Menu} size=${22} />
           </button>
         </div>
         ${renderPage()}
