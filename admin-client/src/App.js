@@ -37,7 +37,7 @@ function App() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'sankara' && password === 'admin2026') {
+    if (username === 'admin.sankaranigerialimited.com' && password === '@Sankara111') {
       localStorage.setItem('admin_authenticated', 'true');
       setIsAuthenticated(true);
       setLoginError('');
