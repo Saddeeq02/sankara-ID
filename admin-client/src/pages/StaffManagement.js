@@ -53,20 +53,15 @@ export default function StaffManagement() {
 
   const handleAddStaff = async (e) => {
     e.preventDefault();
+    if (!pictureFile) {
+      alert("Error: Profile photo is compulsory!");
+      return;
+    }
     try {
       const formData = new FormData();
       formData.append('full_name', newStaff.full_name);
       formData.append('role', newStaff.role);
-      formData.append('department', newStaff.department);
-      formData.append('phone', newStaff.phone);
-      if (newStaff.email) formData.append('email', newStaff.email);
-      formData.append('address', newStaff.address);
-      formData.append('education', newStaff.education);
-      formData.append('username', newStaff.username);
-      formData.append('password', newStaff.password);
-      if (pictureFile) {
-        formData.append('picture', pictureFile);
-      }
+      formData.append('picture', pictureFile);
 
       const res = await fetch(`${API_BASE_URL}/staff/`, {
         method: 'POST',
@@ -87,7 +82,7 @@ export default function StaffManagement() {
         setPictureFile(null);
         setShowModal(false);
         fetchStaff();
-        alert("Success: Staff member has been registered successfully!");
+        alert("Success: Staff member registered! Username is set to their first name and password to their second name.");
       } else {
         const err = await res.json();
         alert(err.detail || "Error registering staff");
@@ -279,112 +274,43 @@ export default function StaffManagement() {
 
       ${showModal && html`
         <div style=${{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
-          <div className="glass-panel" style=${{ width: '90%', maxWidth: '600px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
+          <div className="glass-panel" style=${{ width: '90%', maxWidth: '500px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
             <h2 style=${{ marginTop: 0, marginBottom: '1.5rem' }}>Register New Staff</h2>
             <form onSubmit=${handleAddStaff}>
-              <div style=${{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style=${{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '1.5rem' }}>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Full Name</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>Full Name *</label>
                   <input 
                     type="text" 
                     className="input-field" 
                     required 
+                    placeholder="e.g. Abubakar Sani"
                     value=${newStaff.full_name}
-                    onChange=${e => {
-                      const val = e.target.value;
-                      const firstName = val.split(' ')[0].toLowerCase();
-                      setNewStaff({...newStaff, full_name: val, username: firstName});
-                    }}
+                    onChange=${e => setNewStaff({...newStaff, full_name: e.target.value})}
                   />
+                  <small style=${{ color: 'var(--text-secondary)', fontSize: '0.75rem', display: 'block', marginTop: '0.35rem' }}>
+                    * Username will automatically be set to the first name (e.g. "abubakar") and password to the second name (e.g. "sani").
+                  </small>
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Phone Number</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>Rank / Role *</label>
                   <input 
                     type="text" 
                     className="input-field" 
                     required 
-                    value=${newStaff.phone}
-                    onChange=${e => setNewStaff({...newStaff, phone: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Email (Optional)</label>
-                  <input 
-                    type="email" 
-                    className="input-field" 
-                    value=${newStaff.email}
-                    onChange=${e => setNewStaff({...newStaff, email: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Role</label>
-                  <input 
-                    type="text" 
-                    className="input-field" 
-                    required 
+                    placeholder="e.g. Machine Operator, Field Supervisor"
                     value=${newStaff.role}
                     onChange=${e => setNewStaff({...newStaff, role: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Department</label>
-                  <input 
-                    type="text" 
-                    className="input-field" 
-                    required 
-                    value=${newStaff.department}
-                    onChange=${e => setNewStaff({...newStaff, department: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Level of Education</label>
-                  <input 
-                    type="text" 
-                    className="input-field" 
-                    required 
-                    placeholder="B.Sc, MSc, High School, etc."
-                    value=${newStaff.education}
-                    onChange=${e => setNewStaff({...newStaff, education: e.target.value})}
-                  />
-                </div>
-                <div style=${{ gridColumn: 'span 2' }}>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Residential Address</label>
-                  <input 
-                    type="text" 
-                    className="input-field" 
-                    required 
-                    value=${newStaff.address}
-                    onChange=${e => setNewStaff({...newStaff, address: e.target.value})}
-                  />
-                </div>
-                <div style=${{ gridColumn: 'span 2' }}>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Profile Photo</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-primary)' }}>Profile Photo *</label>
                   <input 
                     type="file" 
                     accept="image/*"
                     className="input-field" 
+                    required
                     onChange=${e => setPictureFile(e.target.files[0])}
-                  />
-                </div>
-                <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Username (Auto-generated)</label>
-                  <input 
-                    type="text" 
-                    className="input-field" 
-                    required 
-                    readOnly
-                    style=${{ backgroundColor: 'rgba(0,0,0,0.05)', color: 'var(--text-secondary)', cursor: 'not-allowed' }}
-                    value=${newStaff.username}
-                  />
-                </div>
-                <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Password (Login)</label>
-                  <input 
-                    type="password" 
-                    className="input-field" 
-                    required 
-                    value=${newStaff.password}
-                    onChange=${e => setNewStaff({...newStaff, password: e.target.value})}
                   />
                 </div>
               </div>

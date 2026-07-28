@@ -40,24 +40,41 @@ class LoginRequest(BaseModel):
 async def create_staff(
     full_name: str = Form(...),
     role: str = Form(...),
-    department: str = Form(...),
-    phone: str = Form(...),
+    picture: UploadFile = File(...),
+    department: Optional[str] = Form(None),
+    phone: Optional[str] = Form(None),
     email: Optional[str] = Form(None),
-    address: str = Form(...),
-    education: str = Form(...),
-    username: str = Form(...),
-    password: str = Form(...),
-    picture: UploadFile = File(None),
+    address: Optional[str] = Form(None),
+    education: Optional[str] = Form(None),
+    username: Optional[str] = Form(None),
+    password: Optional[str] = Form(None),
     db: Session = Depends(models.get_db)
 ):
-    # Check if username is already taken
-    existing = db.query(models.Staff).filter(models.Staff.username == username).first()
-    if existing:
-        raise HTTPException(status_code=400, detail="Username is already registered")
+    if not picture or not picture.filename:
+        raise HTTPException(status_code=400, detail="Profile picture is compulsory")
+
+    # Auto-generate credentials from full_name: first name = username, second name = password
+    name_parts = full_name.strip().split()
+    first_name = name_parts[0].lower() if name_parts else "staff"
+    second_name = name_parts[1].lower() if len(name_parts) > 1 else first_name
+
+    if not password or not password.strip():
+        password = second_name
+
+    if not username or not username.strip():
+        base_user = first_name
+        username = base_user
+        counter = 1
+        while db.query(models.Staff).filter(models.Staff.username == username).first():
+            username = f"{base_user}_{counter}"
+            counter += 1
+    else:
+        existing = db.query(models.Staff).filter(models.Staff.username == username).first()
+        if existing:
+            raise HTTPException(status_code=400, detail="Username is already registered")
 
     picture_path = None
     if picture and picture.filename:
-        # Save photo to uploads directory
         file_ext = os.path.splitext(picture.filename)[1]
         filename = f"staff_{username}{file_ext}"
         
@@ -66,13 +83,13 @@ async def create_staff(
         picture_path = public_url if public_url else None
 
     db_staff = models.Staff(
-        full_name=full_name,
-        role=role,
-        department=department,
-        phone=phone,
-        email=email,
-        address=address,
-        education=education,
+        full_name=full_name.strip(),
+        role=role.strip(),
+        department=department.strip() if department else "General",
+        phone=phone.strip() if phone else "",
+        email=email.strip() if email else None,
+        address=address.strip() if address else "",
+        education=education.strip() if education else "",
         username=username,
         password=password,
         picture_path=picture_path

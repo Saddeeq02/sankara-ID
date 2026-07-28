@@ -6,15 +6,15 @@ from datetime import datetime, date
 class StaffBase(BaseModel):
     full_name: str
     role: str
-    department: str
-    phone: str
+    department: Optional[str] = None
+    phone: Optional[str] = None
     email: Optional[str] = None
-    address: str
-    education: str
-    username: str
+    address: Optional[str] = None
+    education: Optional[str] = None
+    username: Optional[str] = None
 
 class StaffCreate(StaffBase):
-    password: str
+    password: Optional[str] = None
 
 class StaffUpdate(BaseModel):
     full_name: Optional[str] = None
