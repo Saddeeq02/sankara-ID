@@ -1,12 +1,11 @@
-# Plan: Git Commit & Push to Production
+# Plan: Instant Activities Gallery Load Optimization
 
 ## Steps
-1. **Commit & Push in `sankara/`**:
-   - `git add backend/.env.example backend/resources/views/developer_dashboard.blade.php backend/routes/api.php`
-   - `git commit -m "feat: add dynamic SANKARA_ID_API_URL configuration and refactor health endpoints"`
-   - `git push origin main`
+1. **Optimize `sankara/frontend/src/screens/Activities.js`**:
+   - Render gallery items instantly on initial mount (0ms latency).
+   - Implement `sessionStorage` caching for `/api/activities` data.
+   - Add skeleton shimmer effect & `decoding="async"` fade-in image transition.
 
-2. **Commit & Push in `/home/fox/sankara_id`**:
-   - `git add admin-client/ backend/ sankara plan.md`
-   - `git commit -m "feat: centralize API configuration, restore database seed data, fix static uploads mount, and update sankara submodule"`
-   - `git push origin main`
+2. **Build & Verify**:
+   - Run `npm run build` in `sankara/frontend`.
+   - Commit & push changes to remote git repository.

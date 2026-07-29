@@ -42,23 +42,6 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-@router.post("/", response_model=schemas.StaffResponse)
-async def create_staff(
-    full_name: str = Form(...),
-    role: str = Form(...),
-    picture: UploadFile = File(...),
-    department: Optional[str] = Form(None),
-    phone: Optional[str] = Form(None),
-    email: Optional[str] = Form(None),
-    address: Optional[str] = Form(None),
-    education: Optional[str] = Form(None),
-    username: Optional[str] = Form(None),
-    password: Optional[str] = Form(None),
-    db: Session = Depends(models.get_db)
-):
-    if not picture or not picture.filename:
-        raise HTTPException(status_code=400, detail="Profile picture is compulsory")
-
 import re
 
 def extract_name_credentials(full_name: str):
@@ -75,7 +58,7 @@ def extract_name_credentials(full_name: str):
     return first_name, second_name
 
 @router.post("/", response_model=schemas.StaffResponse)
-async def create_staff(
+def create_staff(
     full_name: str = Form(...),
     role: str = Form(...),
     picture: UploadFile = File(...),
