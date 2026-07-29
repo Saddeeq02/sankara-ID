@@ -221,6 +221,26 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
   <script>
+    // Register Firebase Messaging Service Worker for PWA Web Push
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/firebase-messaging-sw.js')
+          .then(function(registration) {
+            console.log('Firebase Messaging ServiceWorker registered with scope:', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed:', err);
+          });
+      });
+    }
+
+    // Request Web Notification permission on user gesture / load
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      Notification.requestPermission().then(function(permission) {
+        console.log('Web Notification permission:', permission);
+      });
+    }
+
     window.addEventListener('flutter-first-frame', () => {
       const loader = document.getElementById('web-splash-loader');
       if (loader) {

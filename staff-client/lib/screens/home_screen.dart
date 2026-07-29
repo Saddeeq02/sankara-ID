@@ -11,6 +11,7 @@ import 'attendance_history_screen.dart';
 import 'login_screen.dart';
 import 'complaints_screen.dart';
 import 'announcements_screen.dart';
+import '../services/notification_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = true;
   Timer? _notificationTimer;
   int _previousPendingTaskCount = -1;
+  int _previousAnnouncementCount = -1;
   Map<String, dynamic>? _topPerformer;
 
   @override
@@ -34,14 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _loadStaffData();
     _startNotificationPolling();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      NotificationService().initialize(context);
+    });
   }
 
   void _startNotificationPolling() {
-    // Check weekly leaderboard on startup
     _checkWeeklyLeaderboard();
     
-    _notificationTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
+    _notificationTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
       _checkForNewTasks();
+      _checkForNewAnnouncements();
     });
   }
 
@@ -106,6 +111,28 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         }
         _previousPendingTaskCount = pendingCount;
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _checkForNewAnnouncements() async {
+    try {
+      final res = await http.get(Uri.parse("${getBaseUrl()}/announcements/"));
+      if (res.statusCode == 200) {
+        final List<dynamic> announcements = jsonDecode(res.body);
+        if (_previousAnnouncementCount != -1 && announcements.length > _previousAnnouncementCount) {
+          final latest = announcements.first;
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('📢 New Announcement: ${latest['title']}'),
+                backgroundColor: const Color(0xFF059669),
+                duration: const Duration(seconds: 6),
+              ),
+            );
+          }
+        }
+        _previousAnnouncementCount = announcements.length;
       }
     } catch (_) {}
   }
