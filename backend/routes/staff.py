@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 import models, schemas
 from services.pdf_generator import generate_id_card
 import os
@@ -8,6 +9,11 @@ import requests
 import shutil
 from typing import Optional
 from pydantic import BaseModel
+
+HONORIFIC_TITLES = {
+    "dr", "dr.", "engr", "engr.", "mr", "mr.", "mrs", "mrs.", "ms", "ms.",
+    "prof", "prof.", "sen", "sen.", "alh", "alhaji", "mallam", "chief", "sir", "hajiya"
+}
 
 
 SUPABASE_URL = "https://srepwupmdnkbisyzixvy.supabase.co"
@@ -53,23 +59,35 @@ async def create_staff(
     if not picture or not picture.filename:
         raise HTTPException(status_code=400, detail="Profile picture is compulsory")
 
-    # Auto-generate credentials from full_name: first name = username, second name = password
-    name_parts = full_name.strip().split()
-    first_name = name_parts[0].lower() if name_parts else "staff"
-    second_name = name_parts[1].lower() if len(name_parts) > 1 else first_name
+    # Auto-generate credentials from full_name:
+    # Filter out honorific titles (e.g. Dr., Engr., Alhaji, Sen.) and clean names
+    import re
+    raw_words = full_name.strip().split()
+    cleaned_words = [
+        re.sub(r'[^a-zA-Z0-9]', '', w).lower() for w in raw_words
+        if w.strip().lower() not in HONORIFIC_TITLES and re.sub(r'[^a-zA-Z0-9]', '', w)
+    ]
+    if not cleaned_words:
+        cleaned_words = [re.sub(r'[^a-zA-Z0-9]', '', w).lower() for w in raw_words if re.sub(r'[^a-zA-Z0-9]', '', w)]
+
+    first_name = cleaned_words[0] if cleaned_words else "staff"
+    second_name = cleaned_words[1] if len(cleaned_words) > 1 else first_name
 
     if not password or not password.strip():
         password = second_name
+    else:
+        password = password.strip().lower()
 
     if not username or not username.strip():
         base_user = first_name
         username = base_user
         counter = 1
-        while db.query(models.Staff).filter(models.Staff.username == username).first():
+        while db.query(models.Staff).filter(func.lower(models.Staff.username) == username.lower()).first():
             username = f"{base_user}_{counter}"
             counter += 1
     else:
-        existing = db.query(models.Staff).filter(models.Staff.username == username).first()
+        username = username.strip().lower()
+        existing = db.query(models.Staff).filter(func.lower(models.Staff.username) == username).first()
         if existing:
             raise HTTPException(status_code=400, detail="Username is already registered")
 
@@ -101,9 +119,12 @@ async def create_staff(
 
 @router.post("/login")
 def login_staff(req: LoginRequest, db: Session = Depends(models.get_db)):
+    clean_username = req.username.strip().lower() if req.username else ""
+    clean_password = req.password.strip().lower() if req.password else ""
+
     staff = db.query(models.Staff).filter(
-        models.Staff.username == req.username,
-        models.Staff.password == req.password
+        func.lower(models.Staff.username) == clean_username,
+        func.lower(models.Staff.password) == clean_password
     ).first()
     
     if not staff:

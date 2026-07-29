@@ -68,6 +68,7 @@ export default function StaffManagement() {
         body: formData
       });
       if (res.ok) {
+        const created = await res.json();
         setNewStaff({
           full_name: '',
           role: '',
@@ -82,7 +83,7 @@ export default function StaffManagement() {
         setPictureFile(null);
         setShowModal(false);
         fetchStaff();
-        alert("Success: Staff member registered! Username is set to their first name and password to their second name.");
+        alert(`Success: Staff member registered!\n\nFull Name: ${created.full_name}\nUsername: ${created.username}\nPassword: ${created.password}`);
       } else {
         const err = await res.json();
         alert(err.detail || "Error registering staff");
