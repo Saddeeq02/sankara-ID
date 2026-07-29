@@ -123,7 +123,7 @@ def login_staff(req: LoginRequest, db: Session = Depends(models.get_db)):
     clean_password = req.password.strip().lower() if req.password else ""
 
     staff = db.query(models.Staff).filter(
-        func.lower(models.Staff.username) == clean_username,
+        (func.lower(models.Staff.username) == clean_username) | (func.lower(models.Staff.full_name) == clean_username),
         func.lower(models.Staff.password) == clean_password
     ).first()
     
