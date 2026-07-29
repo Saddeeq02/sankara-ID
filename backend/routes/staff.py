@@ -59,19 +59,39 @@ async def create_staff(
     if not picture or not picture.filename:
         raise HTTPException(status_code=400, detail="Profile picture is compulsory")
 
-    # Auto-generate credentials from full_name:
-    # Filter out honorific titles (e.g. Dr., Engr., Alhaji, Sen.) and clean names
-    import re
-    raw_words = full_name.strip().split()
+import re
+
+def extract_name_credentials(full_name: str):
+    raw_words = (full_name or "").strip().split()
     cleaned_words = [
         re.sub(r'[^a-zA-Z0-9]', '', w).lower() for w in raw_words
         if w.strip().lower() not in HONORIFIC_TITLES and re.sub(r'[^a-zA-Z0-9]', '', w)
     ]
     if not cleaned_words:
         cleaned_words = [re.sub(r'[^a-zA-Z0-9]', '', w).lower() for w in raw_words if re.sub(r'[^a-zA-Z0-9]', '', w)]
-
+    
     first_name = cleaned_words[0] if cleaned_words else "staff"
     second_name = cleaned_words[1] if len(cleaned_words) > 1 else first_name
+    return first_name, second_name
+
+@router.post("/", response_model=schemas.StaffResponse)
+async def create_staff(
+    full_name: str = Form(...),
+    role: str = Form(...),
+    picture: UploadFile = File(...),
+    department: Optional[str] = Form(None),
+    phone: Optional[str] = Form(None),
+    email: Optional[str] = Form(None),
+    address: Optional[str] = Form(None),
+    education: Optional[str] = Form(None),
+    username: Optional[str] = Form(None),
+    password: Optional[str] = Form(None),
+    db: Session = Depends(models.get_db)
+):
+    if not picture or not picture.filename:
+        raise HTTPException(status_code=400, detail="Profile picture is compulsory")
+
+    first_name, second_name = extract_name_credentials(full_name)
 
     if not password or not password.strip():
         password = second_name
@@ -119,18 +139,27 @@ async def create_staff(
 
 @router.post("/login")
 def login_staff(req: LoginRequest, db: Session = Depends(models.get_db)):
-    clean_username = req.username.strip().lower() if req.username else ""
+    clean_input = req.username.strip().lower() if req.username else ""
     clean_password = req.password.strip().lower() if req.password else ""
 
-    staff = db.query(models.Staff).filter(
-        (func.lower(models.Staff.username) == clean_username) | (func.lower(models.Staff.full_name) == clean_username),
-        func.lower(models.Staff.password) == clean_password
-    ).first()
-    
-    if not staff:
+    candidates = db.query(models.Staff).filter(
+        (func.lower(models.Staff.username) == clean_input) | 
+        (func.lower(models.Staff.full_name) == clean_input)
+    ).all()
+
+    matched_staff = None
+    for s in candidates:
+        stored_pass = (s.password or "").strip().lower()
+        _, second_name = extract_name_credentials(s.full_name)
+        
+        if clean_password == stored_pass or clean_password == second_name:
+            matched_staff = s
+            break
+
+    if not matched_staff:
         raise HTTPException(status_code=401, detail="Invalid username or password")
         
-    return staff
+    return matched_staff
 
 @router.get("/", response_model=list[schemas.StaffResponse])
 def get_all_staff(skip: int = 0, limit: int = 100, db: Session = Depends(models.get_db)):
