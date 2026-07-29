@@ -101,11 +101,11 @@ export default function StaffManagement() {
       const updateData = {
         full_name: editingStaff.full_name,
         role: editingStaff.role,
-        department: editingStaff.department,
-        phone: editingStaff.phone,
+        department: editingStaff.department || "General",
+        phone: editingStaff.phone || "",
         email: editingStaff.email || null,
-        address: editingStaff.address,
-        education: editingStaff.education,
+        address: editingStaff.address || "",
+        education: editingStaff.education || "",
         is_active: editingStaff.is_active,
         score: editingStaff.score
       };
@@ -341,12 +341,11 @@ export default function StaffManagement() {
                   />
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Phone Number</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Phone Number (Optional)</label>
                   <input 
                     type="text" 
                     className="input-field" 
-                    required 
-                    value=${editingStaff.phone}
+                    value=${editingStaff.phone || ''}
                     onChange=${e => setEditingStaff({...editingStaff, phone: e.target.value})}
                   />
                 </div>
@@ -365,27 +364,25 @@ export default function StaffManagement() {
                     type="text" 
                     className="input-field" 
                     required 
-                    value=${editingStaff.role}
+                    value=${editingStaff.role || ''}
                     onChange=${e => setEditingStaff({...editingStaff, role: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Department</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Department (Optional)</label>
                   <input 
                     type="text" 
                     className="input-field" 
-                    required 
-                    value=${editingStaff.department}
+                    value=${editingStaff.department || ''}
                     onChange=${e => setEditingStaff({...editingStaff, department: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Level of Education</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Level of Education (Optional)</label>
                   <input 
                     type="text" 
                     className="input-field" 
-                    required 
-                    value=${editingStaff.education}
+                    value=${editingStaff.education || ''}
                     onChange=${e => setEditingStaff({...editingStaff, education: e.target.value})}
                   />
                 </div>
@@ -395,7 +392,7 @@ export default function StaffManagement() {
                     type="number" 
                     className="input-field" 
                     required 
-                    value=${editingStaff.score}
+                    value=${editingStaff.score ?? 0}
                     onChange=${e => setEditingStaff({...editingStaff, score: parseInt(e.target.value) || 0})}
                   />
                 </div>
@@ -411,12 +408,11 @@ export default function StaffManagement() {
                   </select>
                 </div>
                 <div style=${{ gridColumn: 'span 2' }}>
-                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Residential Address</label>
+                  <label style=${{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Residential Address (Optional)</label>
                   <input 
                     type="text" 
                     className="input-field" 
-                    required 
-                    value=${editingStaff.address}
+                    value=${editingStaff.address || ''}
                     onChange=${e => setEditingStaff({...editingStaff, address: e.target.value})}
                   />
                 </div>
