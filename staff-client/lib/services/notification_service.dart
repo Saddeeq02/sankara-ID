@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -32,7 +31,7 @@ class NotificationService {
     );
 
     await _localNotifications.initialize(
-      initSettings,
+      settings: initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         _handleNotificationClick(response.payload, context);
       },
@@ -81,7 +80,7 @@ class NotificationService {
       debugPrint("Received Foreground Message: ${message.notification?.title}");
       _showLocalNotification(message);
 
-      if (context != null && message.notification != null) {
+      if (context != null && context.mounted && message.notification != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('🔔 ${message.notification?.title}: ${message.notification?.body}'),
@@ -139,10 +138,10 @@ class NotificationService {
     );
 
     await _localNotifications.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
-      details,
+      id: notification.hashCode,
+      title: notification.title,
+      body: notification.body,
+      notificationDetails: details,
       payload: jsonEncode(message.data),
     );
   }
