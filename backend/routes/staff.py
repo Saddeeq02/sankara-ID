@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, text
 import models, schemas
 from services.pdf_generator import generate_id_card
 import os
@@ -308,3 +308,28 @@ def get_score_history(staff_id: int, db: Session = Depends(models.get_db)):
         raise HTTPException(status_code=404, detail="Staff not found")
         
     return db.query(models.ScoreHistory).filter(models.ScoreHistory.staff_id == staff_id).all()
+
+@router.post("/admin/reset-database")
+def admin_reset_database(db: Session = Depends(models.get_db)):
+    db.query(models.ScoreHistory).delete()
+    db.query(models.Task).delete()
+    db.query(models.Attendance).delete()
+    db.query(models.Complaint).delete()
+    db.query(models.Announcement).delete()
+    db.query(models.Staff).delete()
+
+    db_type = models.engine.name
+    if "postgresql" in db_type:
+        try:
+            db.execute(text("TRUNCATE TABLE staff, tasks, attendance, complaints, announcements, score_history RESTART IDENTITY CASCADE;"))
+        except Exception as e:
+            print(f"PostgreSQL sequence reset note: {e}")
+    elif "sqlite" in db_type:
+        try:
+            db.execute(text("DELETE FROM sqlite_sequence WHERE name IN ('staff', 'tasks', 'attendance', 'complaints', 'announcements', 'score_history');"))
+        except Exception as e:
+            print(f"SQLite sequence reset note: {e}")
+
+    db.commit()
+    return {"message": "ID System database reset successfully to SANK-ID-0001"}
+

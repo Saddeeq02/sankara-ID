@@ -171,6 +171,25 @@ export default function StaffManagement() {
     }
   };
 
+  const handleResetIdSystemDatabase = async () => {
+    if (window.confirm("CRITICAL WARNING: Are you sure you want to reset the ID System database? This will clear all staff test records and reset IDs to SANK-ID-0001.")) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/staff/admin/reset-database`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          alert("ID System database cleared! The next registered staff member will be SANK-ID-0001.");
+          fetchStaff();
+        } else {
+          alert("Error: Failed to reset ID System database.");
+        }
+      } catch (err) {
+        console.error("Error resetting ID System DB:", err);
+        alert("Error: A network error occurred while resetting database.");
+      }
+    }
+  };
+
   const filteredStaff = staff.filter(s => 
     s.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     s.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -185,6 +204,9 @@ export default function StaffManagement() {
           <p>Register, edit, and delete staff profiles.</p>
         </div>
         <div style=${{ display: 'flex', gap: '1rem' }}>
+          <button className="btn btn-danger" style=${{ opacity: 0.9 }} onClick=${handleResetIdSystemDatabase}>
+            Reset ID System DB
+          </button>
           <button className="btn btn-glass" onClick=${handleResetMonthlyScores}>
             Monthly Score Reset
           </button>
