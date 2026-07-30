@@ -119,16 +119,16 @@ class NotificationService {
     }
   }
 
-  Future<void> _showLocalNotification(RemoteMessage message) async {
-    final notification = message.notification;
-    if (notification == null) return;
-
+  Future<void> showSystemNotification(String title, String body, {Map<String, dynamic>? data}) async {
     const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'sankara_staff_channel',
       'Sankara Staff Alerts',
       channelDescription: 'Important notifications for Sankara staff members',
       importance: Importance.max,
       priority: Priority.high,
+      visibility: NotificationVisibility.public,
+      playSound: true,
+      enableVibration: true,
       icon: '@mipmap/ic_launcher',
     );
 
@@ -137,12 +137,28 @@ class NotificationService {
       iOS: DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true),
     );
 
-    await _localNotifications.show(
-      id: notification.hashCode,
-      title: notification.title,
-      body: notification.body,
-      notificationDetails: details,
-      payload: jsonEncode(message.data),
+    int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    try {
+      await _localNotifications.show(
+        id: id,
+        title: title,
+        body: body,
+        notificationDetails: details,
+        payload: data != null ? jsonEncode(data) : null,
+      );
+    } catch (e) {
+      debugPrint("Error displaying system notification: $e");
+    }
+  }
+
+  Future<void> _showLocalNotification(RemoteMessage message) async {
+    final notification = message.notification;
+    if (notification == null) return;
+
+    await showSystemNotification(
+      notification.title ?? "Sankara Alert",
+      notification.body ?? "",
+      data: message.data,
     );
   }
 

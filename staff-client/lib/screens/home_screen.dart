@@ -99,7 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
         final pendingCount = tasks.where((t) => t['status'] == 'pending').length;
         
         if (_previousPendingTaskCount != -1 && pendingCount > _previousPendingTaskCount) {
-          // New task assigned!
+          // Trigger system notification bar popup!
+          NotificationService().showSystemNotification(
+            'New Task Assigned!',
+            'You have a new pending task waiting for review.',
+          );
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -122,6 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
         final List<dynamic> announcements = jsonDecode(res.body);
         if (_previousAnnouncementCount != -1 && announcements.length > _previousAnnouncementCount) {
           final latest = announcements.first;
+          // Trigger system notification bar popup!
+          NotificationService().showSystemNotification(
+            'New Announcement: ${latest['title']}',
+            latest['content'] ?? '',
+          );
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
