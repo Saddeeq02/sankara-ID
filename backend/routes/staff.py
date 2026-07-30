@@ -103,7 +103,11 @@ def create_staff(
         public_url = upload_to_supabase(file_bytes, filename)
         picture_path = public_url if public_url else None
 
+    max_id = db.query(func.max(models.Staff.id)).scalar()
+    next_id = (max_id + 1) if max_id is not None else 1
+
     db_staff = models.Staff(
+        id=next_id,
         full_name=full_name.strip(),
         role=role.strip(),
         department=department.strip() if department else "General",
