@@ -225,7 +225,7 @@ export default function StaffManagement() {
             <tbody>
               ${filteredStaff.map((s) => html`
                 <tr key=${s.id}>
-                  <td>SANK-ID-${String(s.id).padStart(5, '0')}</td>
+                  <td>SANK-ID-${String(s.id).padStart(4, '0')}</td>
                   <td style=${{ fontWeight: 500, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <img 
                       src=${getImageUrl(s.picture_path)}

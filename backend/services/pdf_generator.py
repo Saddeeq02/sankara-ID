@@ -290,7 +290,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         info_y = line_y - 10
         c.setFillColorRGB(0.8, 0.8, 0.8, 1) # Bright grey for ID
         c.setFont("Helvetica-Bold", 7.5)
-        c.drawCentredString(CARD_WIDTH / 2, info_y, f"ID: SANK-{staff_id:05d}")
+        c.drawCentredString(CARD_WIDTH / 2, info_y, f"ID: SANK-ID-{staff_id:04d}")
         
         c.setFillColorRGB(0.7, 0.7, 0.7, 1) # Light grey for email
         c.setFont("Helvetica", 6.5)
@@ -517,7 +517,7 @@ def generate_id_card(staff_id: int, full_name: str, role: str, department: str, 
         info_y = line_y - 10
         c.setFillColorRGB(*text_color, 1)
         c.setFont("Helvetica-Bold", 7.5)
-        c.drawCentredString(CARD_WIDTH / 2, info_y, f"ID: SANK-{staff_id:05d}")
+        c.drawCentredString(CARD_WIDTH / 2, info_y, f"ID: SANK-ID-{staff_id:04d}")
         
         c.setFillColorRGB(0.35, 0.2, 0.1, 1)
         c.setFont("Helvetica", 6.5)
