@@ -73,7 +73,7 @@ export default function QRCodeGenerator() {
               max-height: 80px;
               max-width: 240px;
               margin-bottom: 15px;
-              filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+              filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.8));
               object-fit: contain;
             }
             
@@ -297,7 +297,7 @@ export default function QRCodeGenerator() {
 
             <!-- Content Elements styled identically to Print -->
             <div style=${{ position: 'relative', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white', width: '100%', textAlign: 'center' }}>
-              <img src=${logoUrl} alt="Logo" style=${{ maxHeight: '45px', marginBottom: '10px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }} onError=${e => e.target.style.display = 'none'} />
+              <img src=${logoUrl} alt="Logo" style=${{ maxHeight: '50px', marginBottom: '10px', filter: 'brightness(0) invert(1) drop-shadow(0 3px 8px rgba(0,0,0,0.8))', objectFit: 'contain' }} onError=${e => e.target.style.display = 'none'} />
               
               <h1 style=${{ fontSize: '2.2rem', fontWeight: 800, margin: '0 0 4px 0', color: 'white', textTransform: 'uppercase', textShadow: '0 3px 8px rgba(0,0,0,0.5)', letterSpacing: '1px' }}>Staff Only</h1>
               <h2 style=${{ fontSize: '1rem', fontWeight: 700, margin: '0 0 1.5rem 0', color: '#38bdf8', textShadow: '0 2px 4px rgba(0,0,0,0.5)', letterSpacing: '1px', textTransform: 'uppercase' }}>Scan to Clock In & Out</h2>
