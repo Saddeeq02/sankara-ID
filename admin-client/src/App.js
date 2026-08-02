@@ -37,7 +37,25 @@ function App() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'admin.sankaranigerialimited.com' && password === '@Sankara111') {
+    const u = (username || '').trim().toLowerCase();
+    const p = (password || '').trim();
+
+    const validUsernames = [
+      'admin',
+      'admin.sankaranigerialimited.com',
+      'admin@sankaranigerialimited.com',
+      'sankara',
+      'sankaranigerialimited.com'
+    ];
+
+    const validPasswords = [
+      '@Sankara111',
+      '@sankara111',
+      'Sankara111',
+      'sankara111'
+    ];
+
+    if (validUsernames.includes(u) && validPasswords.includes(p)) {
       localStorage.setItem('admin_authenticated', 'true');
       setIsAuthenticated(true);
       setLoginError('');
